@@ -1,0 +1,9 @@
+apiVersion: multiclusterdns.federation.k8s.io/v1alpha1
+kind: MultiClusterIngressDNSRecord
+metadata:
+  name: test-ingress
+  #namespace: test-namespace
+spec:
+  hosts:
+  - ing.daneyon.com
+  recordTTL: 300

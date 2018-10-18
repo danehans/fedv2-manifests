@@ -1,0 +1,11 @@
+apiVersion: clusterregistry.k8s.io/v1alpha1
+kind: Cluster
+metadata:
+  name: cluster2
+  namespace: kube-multicluster-public
+spec:
+  authInfo: {}
+  kubernetesApiEndpoints:
+    serverEndpoints:
+      - clientCIDR: "0.0.0.0/0"
+        serverAddress: "https://35.185.206.180"

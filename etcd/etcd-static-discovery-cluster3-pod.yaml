@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: etcd
+  labels:
+    component: etcd
+  name: etcd
+spec:
+  containers:
+  - command:
+    - etcd
+    - --name=etcd3
+    - --listen-peer-urls=http://0.0.0.0:2380
+    - --listen-client-urls=http://0.0.0.0:2379
+    - --initial-advertise-peer-urls=http://etcd3.etcd.federation-system.svc.daneyon.com:2380
+    - --advertise-client-urls=http://etcd3.etcd.federation-system.svc.daneyon.com:2379
+    - --initial-cluster-token=etcd-cluster-1
+    - --initial-cluster=etcd1=http://etcd1.etcd.federation-system.svc.daneyon.com:2380,etcd2=http://etcd2.etcd.federation-system.svc.daneyon.com:2380,etcd3=http://etcd3.etcd.federation-system.svc.daneyon.com:2380
+    - --initial-cluster-state=new
+    image: k8s.gcr.io/etcd-amd64:3.2.18
+    imagePullPolicy: IfNotPresent
+    name: etcd3

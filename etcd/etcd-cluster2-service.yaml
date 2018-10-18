@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: etcd2
+  namespace: etcd
+spec:
+  selector:
+    component: etcd
+  type: LoadBalancer
+  ports:
+  - name: client
+    port: 2379
+  - name: peer
+    port: 2380

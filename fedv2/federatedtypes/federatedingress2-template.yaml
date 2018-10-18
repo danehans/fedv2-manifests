@@ -1,0 +1,15 @@
+apiVersion: core.federation.k8s.io/v1alpha1
+kind: FederatedIngress
+metadata:
+  name: test2-ingress
+  #namespace: test-namespace
+spec:
+  template:
+    spec:
+      rules:
+      - host: nginx.external.daneyon.com
+        http:
+          paths:
+          - backend:
+              serviceName: test2-service
+              servicePort: 8088

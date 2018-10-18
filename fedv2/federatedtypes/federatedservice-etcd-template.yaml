@@ -1,0 +1,19 @@
+apiVersion: core.federation.k8s.io/v1alpha1
+kind: FederatedService
+metadata:
+  name: etcd
+  namespace: etcd
+spec:
+  template:
+    #metadata: # uncomment if using --source service for ext-dns
+    #  annotations:
+    #    external-dns.alpha.kubernetes.io/hostname: svc.external.daneyon.com.
+    spec:
+      selector:
+        component: etcd
+      type: LoadBalancer
+      ports:
+        - name: client
+          port: 2379
+        - name: peer
+          port: 2380

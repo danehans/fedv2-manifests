@@ -1,0 +1,8 @@
+apiVersion: core.federation.k8s.io/v1alpha1
+kind: FederatedDeploymentPlacement
+metadata:
+  name: test2-deployment
+spec:
+  clusterNames:
+  - cluster2
+  - cluster1

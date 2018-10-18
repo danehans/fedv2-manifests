@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  creationTimestamp: null
+  labels:
+    api: federation
+    control-plane: controller-manager
+    kubebuilder.k8s.io: 1.0.3
+  name: federation-controller-manager
+  namespace: federation-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      api: federation
+      control-plane: controller-manager
+      kubebuilder.k8s.io: 1.0.3
+  serviceName: federation-controller-manager-service
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        api: federation
+        control-plane: controller-manager
+        kubebuilder.k8s.io: 1.0.3
+    spec:
+      containers:
+      - args:
+        - --install-crds=false
+        command:
+        - /root/controller-manager
+        image: quay.io/kubernetes-multicluster/federation-v2:latest
+        name: controller-manager
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
+      terminationGracePeriodSeconds: 10
+  updateStrategy: {}
+status:
+  replicas: 0

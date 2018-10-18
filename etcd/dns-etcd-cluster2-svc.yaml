@@ -1,0 +1,9 @@
+apiVersion: multiclusterdns.federation.k8s.io/v1alpha1
+kind: MultiClusterServiceDNSRecord
+metadata:
+  name: etcd2
+  namespace: etcd
+spec:
+  federationName: federation-system
+  dnsSuffix: daneyon.com
+  recordTTL: 300
