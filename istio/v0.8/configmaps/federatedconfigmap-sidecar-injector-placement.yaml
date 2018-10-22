@@ -3,6 +3,12 @@ kind: FederatedConfigMapPlacement
 metadata:
   name: istio-sidecar-injector
   namespace: istio-system
+  labels:
+    app: istio
+    chart: istio-0.8.0
+    release: istio
+    heritage: Tiller
+    istio: sidecar-injector
 spec:
   clusternames:
   - cluster1

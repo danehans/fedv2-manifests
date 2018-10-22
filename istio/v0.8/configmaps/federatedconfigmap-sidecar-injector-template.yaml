@@ -1,19 +1,18 @@
-# Source: istio/templates/sidecar-injector-configmap.yaml
 apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedConfigMap
 metadata:
-name: istio-sidecar-injector
-namespace: istio-system
-labels:
-  app: istio
-  chart: istio-1.0.0
-  release: istio
-  heritage: Tiller
-  istio: sidecar-injector
+  name: istio-sidecar-injector
+  namespace: istio-system
+  labels:
+      app: istio
+      chart: istio-0.8.0
+      release: istio
+      heritage: Tiller
+      istio: sidecar-injector
 spec:
-template:
-  data:
-    config: |-
+  template:
+    data:
+      config: |-
         policy: enabled
         template: |-
           initContainers:

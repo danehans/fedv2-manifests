@@ -3,6 +3,11 @@ kind: FederatedConfigMapPlacement
 metadata:
   name: istio
   namespace: istio-system
+  labels:
+    app: istio
+    chart: istio-0.8.0
+    release: istio
+    heritage: Tiller
 spec:
   clusternames:
   - cluster1
