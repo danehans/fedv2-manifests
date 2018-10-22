@@ -1,5 +1,5 @@
 apiVersion: generated.federation.k8s.io/v1alpha1
-kind: FederatedServicePlacement
+kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: metrics.config.istio.io
   labels:
