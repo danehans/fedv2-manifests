@@ -1,0 +1,10 @@
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedServicePlacement
+metadata:
+  name: virtualservices.networking.istio.io
+  labels:
+    app: istio-pilot
+spec:
+  clusternames:
+  - cluster2
+  - cluster1

@@ -1,0 +1,18 @@
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedService
+metadata:
+  name: prometheuses.config.istio.io
+  labels:
+    app: mixer
+    package: prometheus
+    istio: mixer-adapter
+spec:
+  template:
+    spec:
+      group: config.istio.io
+      names:
+        kind: prometheus
+        plural: prometheuses
+        singular: prometheus
+      scope: Namespaced
+      version: v1alpha2

@@ -1,0 +1,14 @@
+apiVersion: core.federation.k8s.io/v1alpha1
+kind: FederatedService
+metadata:
+  name: istio-sidecar-injector
+  namespace: istio-system
+  labels:
+    istio: sidecar-injector
+spec:
+  template:
+    spec:
+      ports:
+      - port: 443
+      selector:
+        istio: sidecar-injector

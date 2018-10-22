@@ -1,0 +1,13 @@
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBindingPlacement
+metadata:
+  name: istio-sidecar-injector-istio-system
+  labels:
+    app: istio-sidecar-injector
+    chart: sidecarInjectorWebhook-0.8.0
+    heritage: Tiller
+    release: istio
+spec:
+  clusterNames:
+  - cluster2
+  - cluster1

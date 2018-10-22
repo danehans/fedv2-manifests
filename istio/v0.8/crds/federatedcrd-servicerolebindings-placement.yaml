@@ -1,0 +1,12 @@
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedServicePlacement
+metadata:
+  name: servicerolebindings.config.istio.io
+  labels:
+    app: mixer
+    package: istio.io.mixer
+    istio: rbac
+spec:
+  clusternames:
+  - cluster2
+  - cluster1

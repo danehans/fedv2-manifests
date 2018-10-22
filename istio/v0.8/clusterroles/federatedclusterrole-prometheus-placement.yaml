@@ -1,0 +1,9 @@
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBindingPlacement
+metadata:
+  name: prometheus-istio-system
+  #namespace: istio-system
+spec:
+  clusterNames:
+  - cluster2
+  - cluster1

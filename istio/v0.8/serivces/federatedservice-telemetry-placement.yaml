@@ -1,0 +1,13 @@
+apiVersion: core.federation.k8s.io/v1alpha1
+kind: FederatedServicePlacement
+metadata:
+  name: istio-telemetry
+  namespace: istio-system
+  labels:
+    chart: mixer-0.8.0
+    release: istio
+    istio: mixer
+spec:
+  clusternames:
+  - cluster2
+  - cluster1

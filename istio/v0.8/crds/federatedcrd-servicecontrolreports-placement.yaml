@@ -1,0 +1,12 @@
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedServicePlacement
+metadata:
+  name: servicecontrolreports.config.istio.io
+  labels:
+    app: mixer
+    package: servicecontrolreport
+    istio: mixer-instance
+spec:
+  clusternames:
+  - cluster2
+  - cluster1

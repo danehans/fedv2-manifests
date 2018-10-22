@@ -1,0 +1,18 @@
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBinding
+metadata:
+  name: istio-sidecar-injector-istio-system
+  labels:
+    app: istio-sidecar-injector
+    chart: sidecarInjectorWebhook-0.8.0
+    heritage: Tiller
+    release: istio
+spec:
+  template:
+    rules:
+    - apiGroups: ["*"]
+      resources: ["configmaps"]
+      verbs: ["get", "list", "watch"]
+    - apiGroups: ["admissionregistration.k8s.io"]
+      resources: ["mutatingwebhookconfigurations"]
+      verbs: ["get", "list", "watch", "patch"]

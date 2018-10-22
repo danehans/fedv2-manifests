@@ -1,0 +1,83 @@
+apiVersion: core.federation.k8s.io/v1alpha1
+kind: FederatedDeployment
+metadata:
+  name: istio-telemetry
+  namespace: istio-system
+  labels:
+    chart: mixer-0.8.0
+    release: istio
+    istio: mixer
+spec:
+  template:
+    spec:
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            istio: mixer
+            istio-mixer-type: telemetry
+          annotations:
+            sidecar.istio.io/inject: "false"
+        spec:
+          serviceAccountName: istio-mixer-service-account
+          volumes:
+          - name: istio-certs
+            secret:
+              secretName: istio.istio-mixer-service-account
+              optional: true
+          containers:
+          - name: mixer
+            image: "docker.io/istio/mixer:0.8.0"
+            imagePullPolicy: IfNotPresent
+            ports:
+            - containerPort: 9092
+            - containerPort: 9093
+            - containerPort: 42422
+            args:
+            - --address
+            - tcp://127.0.0.1:9092
+            - --configStoreURL=k8s://
+            - --configDefaultNamespace=istio-system
+            - --trace_zipkin_url=http://zipkin:9411/api/v1/spans
+            resources:
+              {}
+
+          - name: istio-proxy
+            image: "docker.io/istio/proxyv2:0.8.0"
+            imagePullPolicy: IfNotPresent
+            ports:
+            - containerPort: 9091
+            - containerPort: 15004
+            args:
+            - proxy
+            - --serviceCluster
+            - istio-telemetry
+            - --templateFile
+            - /etc/istio/proxy/envoy_telemetry.yaml.tmpl
+            - --controlPlaneAuthPolicy
+            - NONE
+            env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+            - name: INSTANCE_IP
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: status.podIP
+            resources:
+              requests:
+                cpu: 100m
+                memory: 128Mi
+
+            volumeMounts:
+            - name: istio-certs
+              mountPath: /etc/certs
+              readOnly: true

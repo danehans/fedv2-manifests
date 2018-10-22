@@ -1,0 +1,19 @@
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBinding
+metadata:
+  name: istio-mixer-admin-role-binding-istio-system
+  labels:
+    app: mixer
+    chart: mixer-0.8.0
+    heritage: Tiller
+    release: istio
+spec:
+  template:
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: istio-mixer-istio-system
+    subjects:
+      - kind: ServiceAccount
+        name: istio-mixer-service-account
+        namespace: istio-system

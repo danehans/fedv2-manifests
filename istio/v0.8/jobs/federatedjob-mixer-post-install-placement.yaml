@@ -1,0 +1,17 @@
+apiVersion: core.federation.k8s.io/v1alpha1
+kind: FederatedJobPlacement
+metadata:
+  name: istio-mixer-post-install
+  namespace: istio-system
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-delete-policy": before-hook-creation
+  labels:
+    app: mixer
+    chart: mixer-0.8.0
+    release: istio
+    heritage: Tiller
+spec:
+  clusterNames:
+  - cluster2
+  - cluster1

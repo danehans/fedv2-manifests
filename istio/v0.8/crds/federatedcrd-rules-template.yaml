@@ -1,0 +1,18 @@
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedService
+metadata:
+  name: rules.config.istio.io
+  labels:
+    app: mixer
+    package: istio.io.mixer
+    istio: core
+spec:
+  template:
+    spec:
+      group: config.istio.io
+      names:
+        kind: rule
+        plural: rules
+        singular: rule
+      scope: Namespaced
+      version: v1alpha2

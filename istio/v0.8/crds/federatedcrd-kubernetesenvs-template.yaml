@@ -1,0 +1,18 @@
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedService
+metadata:
+  name: kubernetesenvs.config.istio.io
+  labels:
+    app: mixer
+    package: kubernetesenv
+    istio: mixer-adapter
+spec:
+  template:
+    spec:
+      group: config.istio.io
+      names:
+        kind: kubernetesenv
+        plural: kubernetesenvs
+        singular: kubernetesenv
+      scope: Namespaced
+      version: v1alpha2

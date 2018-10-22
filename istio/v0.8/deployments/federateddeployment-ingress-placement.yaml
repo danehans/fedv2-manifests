@@ -1,0 +1,15 @@
+apiVersion: core.federation.k8s.io/v1alpha1
+kind: FederatedDeploymentPlacement
+metadata:
+  name: istio-ingress
+  namespace: istio-system
+  labels:
+    app: ingress
+    chart: ingress-0.8.0
+    release: istio
+    heritage: Tiller
+    istio: ingress
+spec:
+  clusternames:
+  - cluster2
+  - cluster1

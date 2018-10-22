@@ -1,0 +1,8 @@
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBindingPlacement
+metadata:
+  name: istio-ingress-istio-system
+spec:
+  clusterNames:
+  - cluster2
+  - cluster1

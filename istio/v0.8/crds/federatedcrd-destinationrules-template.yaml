@@ -1,0 +1,17 @@
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedService
+metadata:
+  name: destinationrules.networking.istio.io
+  labels:
+    app: istio-pilot
+spec:
+  template:
+    spec:
+      group: networking.istio.io
+      names:
+        kind: DestinationRule
+        listKind: DestinationRuleList
+        plural: destinationrules
+        singular: destinationrule
+      scope: Namespaced
+      version: v1alpha3

@@ -1,0 +1,69 @@
+apiVersion: core.federation.k8s.io/v1alpha1
+kind: FederatedDeployment
+metadata:
+  name: istio-citadel
+  namespace: istio-system
+  labels:
+    app: security
+    chart: security-0.8.0
+    release: istio
+    heritage: Tiller
+    istio: citadel
+spec:
+  template:
+    spec:
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            istio: citadel
+          annotations:
+            sidecar.istio.io/inject: "false"
+        spec:
+          serviceAccountName: istio-citadel-service-account
+          containers:
+          - name: citadel
+            image: "docker.io/istio/citadel:0.8.0"
+            imagePullPolicy: IfNotPresent
+            args:
+            - --append-dns-names=true
+            - --grpc-port=8060
+            - --grpc-hostname=citadel
+            - --self-signed-ca=true
+            - --citadel-storage-namespace=istio-system
+            resources:
+              {}
+
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: beta.kubernetes.io/arch
+                    operator: In
+                    values:
+                    - amd64
+                    - ppc64le
+                    - s390x
+              preferredDuringSchedulingIgnoredDuringExecution:
+              - weight: 2
+                preference:
+                  matchExpressions:
+                  - key: beta.kubernetes.io/arch
+                    operator: In
+                    values:
+                    - amd64
+              - weight: 2
+                preference:
+                  matchExpressions:
+                  - key: beta.kubernetes.io/arch
+                    operator: In
+                    values:
+                    - ppc64le
+              - weight: 2
+                preference:
+                  matchExpressions:
+                  - key: beta.kubernetes.io/arch
+                    operator: In
+                    values:
+                    - s390x

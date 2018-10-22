@@ -1,0 +1,22 @@
+apiVersion: core.federation.k8s.io/v1alpha1
+kind: FederatedService
+metadata:
+  name: istio-policy
+  namespace: istio-system
+  labels:
+    chart: mixer-0.8.0
+    release: istio
+    istio: mixer
+spec:
+  template:
+    spec:
+      ports:
+      - name: grpc-mixer
+        port: 9091
+      - name: grpc-mixer-mtls
+        port: 15004
+      - name: http-monitoring
+        port: 9093
+      selector:
+        istio: mixer
+        istio-mixer-type: policy

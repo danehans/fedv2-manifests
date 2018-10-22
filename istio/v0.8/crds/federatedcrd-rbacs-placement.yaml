@@ -1,0 +1,12 @@
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedServicePlacement
+metadata:
+  name: rbacs.config.istio.io
+  labels:
+    app: mixer
+    package: rbac
+    istio: mixer-adapter
+spec:
+  clusternames:
+  - cluster2
+  - cluster1

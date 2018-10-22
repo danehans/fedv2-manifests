@@ -1,0 +1,15 @@
+apiVersion: core.federation.k8s.io/v1alpha1
+kind: FederatedDeploymentPlacement
+metadata:
+  name: istio-egressgateway
+  namespace: istio-system
+  labels:
+    app: egressgateway
+    chart: egressgateway-0.8.0
+    release: istio
+    heritage: Tiller
+    istio: egressgateway
+spec:
+  clusternames:
+  - cluster2
+  - cluster1

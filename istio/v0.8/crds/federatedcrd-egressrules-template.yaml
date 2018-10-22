@@ -1,0 +1,17 @@
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedService
+metadata:
+  name: egressrules.config.istio.io
+  labels:
+    app: istio-pilot
+spec:
+  template:
+    spec:
+      group: config.istio.io
+      names:
+        kind: EgressRule
+        listKind: EgressRuleList
+        plural: egressrules
+        singular: egressrule
+      scope: Namespaced
+      version: v1alpha2

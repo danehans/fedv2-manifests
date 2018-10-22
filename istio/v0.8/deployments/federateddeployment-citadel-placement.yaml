@@ -1,0 +1,15 @@
+apiVersion: core.federation.k8s.io/v1alpha1
+kind: FederatedDeploymentPlacement
+metadata:
+  name: istio-citadel
+  namespace: istio-system
+  labels:
+    app: security
+    chart: security-0.8.0
+    release: istio
+    heritage: Tiller
+    istio: citadel
+spec:
+  clusternames:
+  - cluster2
+  - cluster1

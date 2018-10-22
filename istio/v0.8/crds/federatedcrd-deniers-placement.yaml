@@ -1,0 +1,12 @@
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedServicePlacement
+metadata:
+  name: deniers.config.istio.io
+  labels:
+    app: mixer
+    package: denier
+    istio: mixer-adapter
+spec:
+  clusternames:
+  - cluster2
+  - cluster1

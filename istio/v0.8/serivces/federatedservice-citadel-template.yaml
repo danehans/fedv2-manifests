@@ -1,0 +1,21 @@
+apiVersion: core.federation.k8s.io/v1alpha1
+kind: FederatedService
+metadata:
+  # we use the normal name here (e.g. 'prometheus')
+  # as grafana is configured to use this as a data source
+  name: istio-citadel
+  namespace: istio-system
+  labels:
+    app: istio-citadel
+spec:
+  template:
+    spec:
+      ports:
+      - name: grpc-citadel
+        port: 8060
+        targetPort: 8060
+        protocol: TCP
+      - name: http-monitoring
+        port: 9093
+      selector:
+        istio: citadel

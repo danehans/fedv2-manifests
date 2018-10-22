@@ -1,0 +1,14 @@
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedService
+metadata:
+  name: policies.authentication.istio.io
+spec:
+  template:
+    spec:
+      group: authentication.istio.io
+      names:
+        kind: Policy
+        plural: policies
+        singular: policy
+      scope: Namespaced
+      version: v1alpha1

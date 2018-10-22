@@ -1,0 +1,14 @@
+apiVersion: core.federation.k8s.io/v1alpha1
+kind: FederatedServicePlacement
+metadata:
+  name: istio-ingressgateway
+  namespace: istio-system
+  labels:
+    chart: ingressgateway-0.8.0
+    release: istio
+    heritage: Tiller
+    istio: ingressgateway
+spec:
+  clusternames:
+  - cluster2
+  - cluster1

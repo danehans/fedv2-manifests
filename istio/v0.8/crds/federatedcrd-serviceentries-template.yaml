@@ -1,0 +1,17 @@
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedService
+metadata:
+  name: serviceentries.networking.istio.io
+  labels:
+    app: istio-pilot
+spec:
+  template:
+    spec:
+      group: networking.istio.io
+      names:
+        kind: ServiceEntry
+        listKind: ServiceEntryList
+        plural: serviceentries
+        singular: serviceentry
+      scope: Namespaced
+      version: v1alpha3

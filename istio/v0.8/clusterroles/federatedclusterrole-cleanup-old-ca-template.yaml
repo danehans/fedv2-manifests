@@ -1,0 +1,19 @@
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBinding
+metadata:
+  name: istio-cleanup-old-ca-istio-system
+  #namespace: istio-system
+  labels:
+    app: security
+    chart: security-0.8.0
+    heritage: Tiller
+    release: istio
+spec:
+  template:
+    rules:
+    - apiGroups: [""]
+      resources: ["deployments", "serviceaccounts", "services"]
+      verbs: ["get", "delete"]
+    - apiGroups: ["extensions"]
+      resources: ["deployments", "replicasets"]
+      verbs: ["get", "list", "update", "delete"]

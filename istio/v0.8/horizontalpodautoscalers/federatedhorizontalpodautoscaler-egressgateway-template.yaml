@@ -1,0 +1,19 @@
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedHorizontalPodAutoScaler
+metadata:
+  name: istio-egressgateway
+  namespace: istio-system
+spec:
+  template:
+    spec:
+      maxReplicas: 1
+      minReplicas: 1
+      scaleTargetRef:
+        apiVersion: apps/v1beta1
+        kind: Deployment
+        name: istio-egressgateway
+      metrics:
+      - type: Resource
+        resource:
+          name: cpu
+          targetAverageUtilization: 80
