@@ -8,6 +8,6 @@ metadata:
   labels:
     app: istio-citadel
 spec:
-  clusternames:
+  clusterNames:
   - cluster2
   - cluster1

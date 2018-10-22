@@ -10,6 +10,6 @@ metadata:
     heritage: Tiller
     istio: citadel
 spec:
-  clusternames:
+  clusterNames:
   - cluster2
   - cluster1

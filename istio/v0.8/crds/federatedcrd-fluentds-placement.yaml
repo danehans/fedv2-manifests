@@ -7,6 +7,6 @@ metadata:
     package: fluentd
     istio: mixer-adapter
 spec:
-  clusternames:
+  clusterNames:
   - cluster2
   - cluster1

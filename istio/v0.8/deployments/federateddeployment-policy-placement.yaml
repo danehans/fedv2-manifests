@@ -8,6 +8,6 @@ metadata:
     release: istio
     istio: mixer
 spec:
-  clusternames:
+  clusterNames:
   - cluster2
   - cluster1

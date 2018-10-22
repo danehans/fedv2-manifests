@@ -3,6 +3,6 @@ kind: FederatedServicePlacement
 metadata:
   name: httpapispecs.config.istio.io
 spec:
-  clusternames:
+  clusterNames:
   - cluster2
   - cluster1

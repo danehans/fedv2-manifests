@@ -4,6 +4,6 @@ metadata:
   name: istio-security-custom-resources
   namespace: istio-system
 spec:
-  clusternames:
+  clusterNames:
   - cluster1
   - cluster2

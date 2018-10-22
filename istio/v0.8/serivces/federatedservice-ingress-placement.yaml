@@ -9,6 +9,6 @@ metadata:
     heritage: Tiller
     istio: ingress
 spec:
-  clusternames:
+  clusterNames:
   - cluster2
   - cluster1

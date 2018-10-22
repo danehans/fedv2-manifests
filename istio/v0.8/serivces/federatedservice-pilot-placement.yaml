@@ -9,6 +9,6 @@ metadata:
     release: istio
     heritage: Tiller
 spec:
-  clusternames:
+  clusterNames:
   - cluster2
   - cluster1

@@ -4,6 +4,6 @@ metadata:
   name: istio-statsd-prom-bridge
   namespace: istio-system
 spec:
-  clusternames:
+  clusterNames:
   - cluster1
   - cluster2

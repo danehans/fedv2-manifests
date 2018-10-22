@@ -10,6 +10,6 @@ metadata:
     heritage: Tiller
     istio: ingressgateway
 spec:
-  clusternames:
+  clusterNames:
   - cluster2
   - cluster1

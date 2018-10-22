@@ -4,6 +4,6 @@ metadata:
   name: istio-galley-configuration
   namespace: istio-system
 spec:
-  clusternames:
+  clusterNames:
   - cluster1
   - cluster2

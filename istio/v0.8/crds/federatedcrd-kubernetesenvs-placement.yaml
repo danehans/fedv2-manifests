@@ -7,6 +7,6 @@ metadata:
     package: istio.io.mixer
     istio: core
 spec:
-  clusternames:
+  clusterNames:
   - cluster2
   - cluster1

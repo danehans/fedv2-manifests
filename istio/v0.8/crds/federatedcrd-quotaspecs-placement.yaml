@@ -3,6 +3,6 @@ kind: FederatedServicePlacement
 metadata:
   name: quotaspecs.config.istio.io
 spec:
-  clusternames:
+  clusterNames:
   - cluster2
   - cluster1

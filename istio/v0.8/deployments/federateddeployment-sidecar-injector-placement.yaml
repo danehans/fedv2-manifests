@@ -10,6 +10,6 @@ metadata:
     heritage: Tiller
     istio: sidecar-injector
 spec:
-  clusternames:
+  clusterNames:
   - cluster2
   - cluster1

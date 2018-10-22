@@ -9,6 +9,6 @@ metadata:
     heritage: Tiller
     istio: egressgateway
 spec:
-  clusternames:
+  clusterNames:
   - cluster2
   - cluster1

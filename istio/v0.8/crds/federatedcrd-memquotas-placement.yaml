@@ -7,6 +7,6 @@ metadata:
     package: memquota
     istio: mixer-adapter
 spec:
-  clusternames:
+  clusterNames:
   - cluster2
   - cluster1

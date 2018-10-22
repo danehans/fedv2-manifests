@@ -10,6 +10,6 @@ metadata:
     heritage: Tiller
     istio: mixer
 spec:
-  clusternames:
+  clusterNames:
   - cluster1
   - cluster2
