@@ -1,5 +1,5 @@
 apiVersion: generated.federation.k8s.io/v1alpha1
-kind: FederatedHorizontalPodAutoScaler
+kind: FederatedHorizontalPodAutoscaler
 metadata:
   name: istio-egressgateway
   namespace: istio-system

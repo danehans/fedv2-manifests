@@ -28,12 +28,15 @@ spec:
           # This is the k8s ingress service name, update if you used a different name
           ingressService: istio-ingress
 
+          # TODO (danehans): Find out why pilot/sidecar pods fail with sds flags enabled:
+          # Error: failed to create injection webhook failed to convert to proto. unknown field "sdsRefreshDelay"
+          # in v1alpha1.MeshConfig
           # Unix Domain Socket through which envoy communicates with NodeAgent SDS to get
           # key/cert for mTLS. Use secret-mount files instead of SDS if set to empty.
-          sdsUdsPath: ""
+          #sdsUdsPath: ""
 
           # How frequently should Envoy fetch key/cert from NodeAgent.
-          sdsRefreshDelay: 15s
+          #sdsRefreshDelay: 15s
 
           #
           defaultConfig:
