@@ -1,8 +1,8 @@
 apiVersion: generated.federation.k8s.io/v1alpha1
-kind: FederatedClusterRoleBinding
+kind: FederatedClusterRole
 metadata:
   name: prometheus-istio-system
-  #namespace: istio-system
+  namespace: istio-system
 spec:
   template:
     rules:
