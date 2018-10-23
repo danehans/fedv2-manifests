@@ -14,8 +14,8 @@ spec:
       type: ClusterIP
       selector:
         istio: egressgateway
-        ports:
-        - name: http
-          port: 80
-        - name: https
-          port: 443
+      ports:
+      - name: http
+        port: 80
+      - name: https
+        port: 443
