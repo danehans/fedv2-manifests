@@ -1,7 +1,8 @@
 apiVersion: generated.federation.k8s.io/v1alpha1
 kind: FederatedClusterRolePlacement
 metadata:
-  name: istio-mixer-post-install-role-binding-istio-system
+  name: istio-mixer-post-install-istio-system
+  namespace: istio-system
   labels:
     app: mixer
     chart: mixer-0.8.0
