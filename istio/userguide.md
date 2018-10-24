@@ -59,24 +59,6 @@ $ kubectl patch clusterrole/federation-controller-manager:cluster2-cluster1 \
 --context cluster2
 ```
 
-Create namespace `istio-system` in the host cluster. __Note__: The fed-v2 controller-manager will automatically
-propagate the namespace to target clusters.
-```bash
-kubectl create ns istio-system --context cluster1
-```
-
-Verify namespace `istio-system` has been propagated to `cluster2`:
-```bash
-$ kubectl get ns --context cluster2
-NAME                       STATUS    AGE
-default                    Active    9m
-federation-system          Active    6m
-istio-system               Active    14s
-kube-multicluster-public   Active    5m
-kube-public                Active    9m
-kube-system                Active    9m
-```
-
 Set the version of Federated Istio manifests to use:
 ```bash
 export ISTIO_VERSION=v0.8.0
@@ -84,6 +66,7 @@ export ISTIO_VERSION=v0.8.0
 
 Change to the fedv2-manifests project root directory and use `kubectl` to install the Federated Istio manifests:
 ```bash
+kubectl apply -f istio/$ISTIO_VERSION/namespaces
 kubectl apply -f istio/$ISTIO_VERSION/crds
 kubectl apply -f istio/$ISTIO_VERSION/configmaps
 kubectl apply -f istio/$ISTIO_VERSION/serviceaccounts
