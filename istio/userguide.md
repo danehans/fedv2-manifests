@@ -35,6 +35,8 @@ the `kubefed2 federate` command to federate additional resources required for Is
 ./bin/kubefed2 federate --namespaced=false --group=rbac.authorization.k8s.io \
 --version=v1beta1 --kind=ClusterRoleBinding
 ./bin/kubefed2 federate --namespaced=true --group=rbac.authorization.k8s.io \
+--version=v1beta1 --kind=Role
+./bin/kubefed2 federate --namespaced=true --group=rbac.authorization.k8s.io \
 --version=v1beta1 --kind=RoleBinding
 ./bin/kubefed2 federate --namespaced=true --group=autoscaling --version=v2beta1 \
 --kind=HorizontalPodAutoscaler
@@ -87,6 +89,7 @@ kubectl apply -f istio/$ISTIO_VERSION/configmaps
 kubectl apply -f istio/$ISTIO_VERSION/serviceaccounts
 kubectl apply -f istio/$ISTIO_VERSION/clusterroles
 kubectl apply -f istio/$ISTIO_VERSION/clusterrolebindings
+kubectl apply -f istio/$ISTIO_VERSION/roles
 kubectl apply -f istio/$ISTIO_VERSION/rolebindings
 kubectl apply -f istio/$ISTIO_VERSION/services
 kubectl apply -f istio/$ISTIO_VERSION/mutatingwebhookconfigurations
@@ -199,6 +202,13 @@ istio-sidecar-injector-admin-role-binding-istio-system   42s
 prometheus-istio-system                                  43s
 ```
 
+Verify Istio roles have been propagated to `cluster1`:
+```bash
+$ kubectl -n istio-system get roles --context cluster1
+NAME                                AGE
+istio-cleanup-old-ca-istio-system   27s
+```
+
 Verify Istio rolebindings have been propagated to `cluster1`:
 ```bash
 $ kubectl -n istio-system get rolebindings --context cluster1
@@ -287,7 +297,7 @@ $ kubectl apply -f istio/$ISTIO_VERSION/samples/bookinfo/bookinfo.yaml
 
 Verify the bookinfo deployments have been propagated to both clusters.
 ```bash
-# kubectl get deployments --context cluster1
+$ kubectl get deployments --context cluster1
 NAME             DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 details-v1       1         1         1            1           4m
 productpage-v1   1         1         1            1           4m
@@ -298,7 +308,7 @@ reviews-v3       1         1         1            1           4m
 
 Verify the bookinfo services have been propagated to both clusters.
 ```bash
-# kubectl get services --context cluster1
+$ kubectl get services --context cluster1
 NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
 details       ClusterIP   10.107.10.36     <none>        9080/TCP   5m
 kubernetes    ClusterIP   10.96.0.1        <none>        443/TCP    1h
