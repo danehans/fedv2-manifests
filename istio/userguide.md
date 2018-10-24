@@ -143,9 +143,6 @@ tracespans.config.istio.io                                                2018-1
 virtualservices.networking.istio.io                                       2018-10-24T15:18:21Z
 ```
 
-Repeat the above command and all subsequent verification commands, replacing `cluster1` with `cluster2`, to verify
-resource propagation to `cluster2`.
-
 Verify Istio configmaps have been propagated to `cluster1`:
 ```bash
 $ kubectl get configmaps -n istio-system --context cluster1
@@ -266,3 +263,46 @@ istio-egressgateway    Deployment/istio-egressgateway    <unknown>/80%   1      
 istio-ingress          Deployment/istio-ingress          <unknown>/80%   1         1         0          16s
 istio-ingressgateway   Deployment/istio-ingressgateway   <unknown>/80%   1         1         0          16s
 ```
+Repeat the above commands, replacing `cluster1` with `cluster2`, to verify resource propagation to `cluster2`.
+
+## Bookinfo Deployment
+Label the default namespace with `istio-injection=enabled`:
+```bash
+$ kubectl label namespace default istio-injection=enabled
+$ kubectl get namespace -L istio-injection --context cluster1
+NAME                       STATUS    AGE       ISTIO-INJECTION
+default                    Active    1h        enabled
+federation-system          Active    1h
+istio-system               Active    1h
+kube-multicluster-public   Active    1h
+kube-public                Active    1h
+kube-system                Active    1h
+```
+
+Install the [bookinfo](https://istio.io/docs/examples/bookinfo/) sample application to verify Istio is operating
+properly:
+```bash
+$ kubectl apply -f istio/$ISTIO_VERSION/samples/bookinfo/bookinfo.yaml
+```
+
+Verify the bookinfo deployments have been propagated to both clusters.
+```bash
+# kubectl get deployments --context cluster1
+NAME             DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+details-v1       1         1         1            1           4m
+productpage-v1   1         1         1            1           4m
+reviews-v1       1         1         1            1           4m
+reviews-v2       1         1         1            1           4m
+reviews-v3       1         1         1            1           4m
+```
+
+Verify the bookinfo services have been propagated to both clusters.
+```bash
+# kubectl get services --context cluster1
+NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+details       ClusterIP   10.107.10.36     <none>        9080/TCP   5m
+kubernetes    ClusterIP   10.96.0.1        <none>        443/TCP    1h
+productpage   ClusterIP   10.111.161.112   <none>        9080/TCP   5m
+reviews       ClusterIP   10.96.84.246     <none>        9080/TCP   5m
+```
+Repeat the above commands, replacing `cluster1` with `cluster2`, to verify resource propagation to `cluster2`.
