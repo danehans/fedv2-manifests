@@ -11,6 +11,7 @@ spec:
   template:
     spec:
       template:
+        replicas: 1
         metadata:
           labels:
             istio: statsd-prom-bridge
