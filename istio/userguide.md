@@ -7,46 +7,57 @@
 
 ## Introduction
 
-## Prerequisites
+__TODO__: Add Intro to fedv2 and istio.
+
 This guide uses branch [danehans/marun_combined](https://github.com/danehans/federation-v2/tree/marun_combined) of the
 federation-v2 project which contains commits yet to merge upstream.
 
 https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/development.md#automated-deployment
 
 
-## Kubernetes Cluster Deployment
-Follow the fed-v2 [user guide](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md)
+## Kubernetes Clusters
+You need 2 or more Kubernetes v1.11 or greater clusters. Follow the fed-v2
+[user guide](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md)
 for deploying k8s clusters/fed-v2 control-plane. The [fedv2-manifests](https://github.com/danehans/fedv2-manifests)
 project contains manifests for installing Federated Istio.
 
 ## Federation v2 Deployment
+__TODOs__:
+- Cut a release of fedv2-manifests that includes kubefed2 bin, install.yaml that references danehans:test
+controller-manager image. Update docs accordingly.
+- Simple installer script that can be curl'd.
+
 Follow the fed-v2 [user guide](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md)
 for deploying k8s clusters/fed-v2 control-plane. The [fedv2-manifests](https://github.com/danehans/fedv2-manifests)
 project contains manifests for installing Federated Istio.
 
 Fed-v2 includes `core` federated resources such as `FederatedDeployment`, `FederatedConfigMap`, etc.. Use
-`kubectl get federatedtypeconfigs -n federation-system` to view the list of federated type configs deployed by default. Use
-the `kubefed2 federate` command to federate additional resources required for Istio. For example:
+`kubectl get federatedtypeconfigs -n federation-system` to view the list of federated type configs deployed by default.
+Use the `kubefed2 federate` command to federate additional resources required for Istio. For example:
+
+__TODO__: Steps for downlaoding fedv2-manifests release, extracting tarball and copying kubefedv2 bin to /use/local/bin
+and chmod+x
 ```bash
-./bin/kubefed2 federate --namespaced=false --group=apiextensions.k8s.io \
+kubefed2 federate --namespaced=false --group=apiextensions.k8s.io \
 --version=v1beta1 --kind=CustomResourceDefinition
-./bin/kubefed2 federate --namespaced=false --group=rbac.authorization.k8s.io \
+kubefed2 federate --namespaced=false --group=rbac.authorization.k8s.io \
 --version=v1beta1 --kind=ClusterRole
-./bin/kubefed2 federate --namespaced=false --group=rbac.authorization.k8s.io \
+kubefed2 federate --namespaced=false --group=rbac.authorization.k8s.io \
 --version=v1beta1 --kind=ClusterRoleBinding
-./bin/kubefed2 federate --namespaced=true --group=rbac.authorization.k8s.io \
+kubefed2 federate --namespaced=true --group=rbac.authorization.k8s.io \
 --version=v1beta1 --kind=Role
-./bin/kubefed2 federate --namespaced=true --group=rbac.authorization.k8s.io \
+kubefed2 federate --namespaced=true --group=rbac.authorization.k8s.io \
 --version=v1beta1 --kind=RoleBinding
-./bin/kubefed2 federate --namespaced=true --group=autoscaling --version=v2beta1 \
+kubefed2 federate --namespaced=true --group=autoscaling --version=v2beta1 \
 --kind=HorizontalPodAutoscaler
-./bin/kubefed2 federate --namespaced=false --group=admissionregistration.k8s.io \
+kubefed2 federate --namespaced=false --group=admissionregistration.k8s.io \
 --version=v1beta1 --kind=MutatingWebhookConfiguration
-# Deployment v1beta1 must ve created b/c core includes v1
-# To view: $ kubectl get federateddeployments.generated -n istio-system
-./bin/kubefed2 federate --namespaced=true --group=extensions --version=v1beta1 \
+kubefed2 federate --namespaced=true --group=extensions --version=v1beta1 \
 --kind=Deployment
 ```
+__Note__: Istio v.0.8.0 uses version `v1beta1` of the `Deployment` resource, while the Federation-v2 `core` group API
+includes `v1` of this type. Use `kubectl get federateddeployments.generated -n istio-system` to view version `v1beta1`
+of the `FederatedDeployment` resource.
 
 You must update the fedv2 service account clusterrole for each target cluster due to
 [issue #354](https://github.com/kubernetes-sigs/federation-v2/issues/354):
@@ -75,10 +86,19 @@ kubectl apply -f istio/$ISTIO_VERSION/clusterrolebindings
 kubectl apply -f istio/$ISTIO_VERSION/roles
 kubectl apply -f istio/$ISTIO_VERSION/rolebindings
 kubectl apply -f istio/$ISTIO_VERSION/services
-kubectl apply -f istio/$ISTIO_VERSION/mutatingwebhookconfigurations
 kubectl apply -f istio/$ISTIO_VERSION/deployments
 kubectl apply -f istio/$ISTIO_VERSION/jobs
 kubectl apply -f istio/$ISTIO_VERSION/horizontalpodautoscalers
+```
+
+Since the sidecar-injector pod patches the client `caBundle` of the `MutatingWebhookConfiguration` resource with the
+sidecar-injector secret data, it can not be federated. When the resource gets patched, the `resourceVersion` field is
+updated, causing a propagated version mismatch between the federated and target resources. When the fedv2 sync
+controller sees the mismatch, it will re-propagate the `MutatingWebhookConfiguration` resource which contains the empty
+`caBundle`. For the time being, deploy the `MutatingWebhookConfiguration` resource to clusters individually:
+```bash
+$ kubectl apply -f istio/$ISTIO_VERSION/src/mutating-webhook-configuration.yaml --context cluster1
+$ kubectl apply -f istio/$ISTIO_VERSION/src/mutating-webhook-configuration.yaml --context cluster2
 ```
 
 ## Istio Deployment Verification
