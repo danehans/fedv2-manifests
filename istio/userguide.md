@@ -1,7 +1,6 @@
 # Federated Istio User Guide
 
 ##TODOs
-1. Figure out why statsd deployment is not being propagated.
 2. Figure out why `sdsUdsPath` and `sdsRefreshDelay` had to be disabled from mesh config. Maybe b/c mutwebhookconfig?
 3. Users _MUST_ clone my branch b/c `kubefed2` bin needs to get built.
 

@@ -11,6 +11,8 @@ spec:
   template:
     spec:
       template:
+        # The source istio.yaml does not specify replicas: 1 but all other Deployments do.
+        # Federating this Deployment without replicas causes the target resource to never get created.
         replicas: 1
         metadata:
           labels:
@@ -25,7 +27,10 @@ spec:
               name: istio-statsd-prom-bridge
           containers:
           - name: statsd-prom-bridge
-            image: "prom/statsd-exporter:latest"
+            # The source istio.yaml specifies uses the latest image tag. This causes failure in federated or
+            # non-federated installations due to the following error:
+            # statsd_exporter: error: unknown short flag '-s', try --help
+            image: "prom/statsd-exporter:v0.6.0"
             imagePullPolicy: IfNotPresent
             ports:
             - containerPort: 9102
