@@ -244,7 +244,8 @@ NAME                     CREATED AT
 istio-sidecar-injector   2018-10-24T16:11:55Z
 ```
 
-Verify Istio deployments have been propagated to `cluster1`:
+Verify Istio deployments have been propagated to `cluster1`. Make sure each deployment show the 1 under the AVAILABLE
+column:
 ```bash
 $ kubectl -n istio-system get deployments --context cluster1
 NAME                     DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
@@ -255,6 +256,7 @@ istio-ingressgateway     1         1         1            1           5m
 istio-pilot              1         1         1            1           5m
 istio-policy             1         1         1            1           5m
 istio-sidecar-injector   1         1         1            1           5m
+istio-statsd-prom-bridge 1         1         1            1           5m
 istio-telemetry          1         1         1            1           5m
 prometheus               1         1         1            1           5m
 ```
@@ -318,3 +320,31 @@ productpage   ClusterIP   10.111.161.112   <none>        9080/TCP   5m
 reviews       ClusterIP   10.96.84.246     <none>        9080/TCP   5m
 ```
 Repeat the above commands, replacing `cluster1` with `cluster2`, to verify resource propagation to `cluster2`.
+
+## Cleanup
+
+Uninstall the bookinfo sample application:
+```bash
+$ kubectl delete -f istio/$ISTIO_VERSION/samples/bookinfo/bookinfo.yaml
+
+```
+Uninstall Federated Istio:
+```bash
+kubectl delete -f istio/$ISTIO_VERSION/horizontalpodautoscalers
+kubectl delete -f istio/$ISTIO_VERSION/jobs
+kubectl delete -f istio/$ISTIO_VERSION/deployments
+kubectl delete -f istio/$ISTIO_VERSION/services
+kubectl delete -f istio/$ISTIO_VERSION/rolebindings
+kubectl delete -f istio/$ISTIO_VERSION/roles
+kubectl delete -f istio/$ISTIO_VERSION/clusterrolebindings
+kubectl delete -f istio/$ISTIO_VERSION/clusterroles
+kubectl delete -f istio/$ISTIO_VERSION/serviceaccounts
+kubectl delete -f istio/$ISTIO_VERSION/configmaps
+kubectl delete -f istio/$ISTIO_VERSION/crds
+kubectl delete -f istio/$ISTIO_VERSION/namespaces
+```
+
+Uninstall the federation-v2 control-plane by changing to the federation-v2 project root directory and run:
+```bash
+./scripts/delete-federation.sh
+```
