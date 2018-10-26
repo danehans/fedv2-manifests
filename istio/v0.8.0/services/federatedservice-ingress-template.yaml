@@ -11,7 +11,9 @@ metadata:
 spec:
   template:
     spec:
-      type: LoadBalancer
+      # Replace LoadBalancer with NodePort for minikube and other environments that
+      # do not use cloud load-balancers.
+      type: NodePort
       selector:
         istio: ingress
       ports:
