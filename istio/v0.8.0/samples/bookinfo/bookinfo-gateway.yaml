@@ -1,3 +1,6 @@
+
+# Federated manifest source:
+# https://raw.githubusercontent.com/istio/istio/release-0.8/samples/bookinfo/routing/bookinfo-gateway.yaml
 apiVersion: generated.federation.k8s.io/v1alpha1
 kind: FederatedGateway
 metadata:
