@@ -321,6 +321,19 @@ reviews       ClusterIP   10.96.84.246     <none>        9080/TCP   5m
 ```
 Repeat the above commands, replacing `cluster1` with `cluster2`, to verify resource propagation to `cluster2`.
 
+Federate the Istio `Gateway and `VirtualService` resources:
+```bash
+$ kubefed2 federate --namespaced=true --group=networking.istio.io \
+--version=v1alpha3 --kind=Gateway
+$ kubefed2 federate --namespaced=true --group=networking.istio.io \
+--version=v1alpha3 --kind=VirtualService
+```
+
+Define the Istio ingress gateway for the bookinfo application:
+```bash
+$ kubectl istio/$ISTIO_VERSION/samples/bookinfo/bookinfo-gateway.yaml
+```
+
 ## Cleanup
 
 Uninstall the bookinfo sample application:
