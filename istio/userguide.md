@@ -1,8 +1,9 @@
 # Federated Istio User Guide
 
+This is an early access preview of Federated Istio.
+
 ##TODOs
-2. Figure out why `sdsUdsPath` and `sdsRefreshDelay` had to be disabled from mesh config. Maybe b/c mutwebhookconfig?
-3. Users _MUST_ clone my branch b/c `kubefed2` bin needs to get built.
+1. Cut a release that includes the kubefed2 bin.
 
 ## Introduction
 
@@ -74,20 +75,25 @@ Set the version of Federated Istio manifests to use:
 export ISTIO_VERSION=v0.8.0
 ```
 
-Change to the fedv2-manifests project root directory and use `kubectl` to install the Federated Istio manifests:
+Change to the fedv2-manifests project root directory and use `kubectl` to install the Federated Istio manifests.
+
+__Note__: The `istio/$ISTIO_VERSION0/services/federatedservice-ingress-gateway-template.yaml` manifest uses
+`type: LoadBalancer`. If you intend on deploying Federated Istio to clusters that use another type to expose
+services, you must change this field. An override manifest can be used to accomplish this once
+([issue #367](https://github.com/kubernetes-sigs/federation-v2/issues/367)) is implemented.
 ```bash
-kubectl apply -f istio/$ISTIO_VERSION/namespaces
-kubectl apply -f istio/$ISTIO_VERSION/crds
-kubectl apply -f istio/$ISTIO_VERSION/configmaps
-kubectl apply -f istio/$ISTIO_VERSION/serviceaccounts
-kubectl apply -f istio/$ISTIO_VERSION/clusterroles
-kubectl apply -f istio/$ISTIO_VERSION/clusterrolebindings
-kubectl apply -f istio/$ISTIO_VERSION/roles
-kubectl apply -f istio/$ISTIO_VERSION/rolebindings
-kubectl apply -f istio/$ISTIO_VERSION/services
-kubectl apply -f istio/$ISTIO_VERSION/deployments
-kubectl apply -f istio/$ISTIO_VERSION/jobs
-kubectl apply -f istio/$ISTIO_VERSION/horizontalpodautoscalers
+kubectl create -f istio/$ISTIO_VERSION/namespaces
+kubectl create -f istio/$ISTIO_VERSION/crds
+kubectl create -f istio/$ISTIO_VERSION/configmaps
+kubectl create -f istio/$ISTIO_VERSION/serviceaccounts
+kubectl create -f istio/$ISTIO_VERSION/clusterroles
+kubectl create -f istio/$ISTIO_VERSION/clusterrolebindings
+kubectl create -f istio/$ISTIO_VERSION/roles
+kubectl create -f istio/$ISTIO_VERSION/rolebindings
+kubectl create -f istio/$ISTIO_VERSION/services
+kubectl create -f istio/$ISTIO_VERSION/deployments
+kubectl create -f istio/$ISTIO_VERSION/jobs
+kubectl create -f istio/$ISTIO_VERSION/horizontalpodautoscalers
 ```
 
 Since the sidecar-injector pod patches the client `caBundle` of the `MutatingWebhookConfiguration` resource with the
@@ -96,188 +102,36 @@ updated, causing a propagated version mismatch between the federated and target 
 controller sees the mismatch, it will re-propagate the `MutatingWebhookConfiguration` resource which contains the empty
 `caBundle`. For the time being, deploy the `MutatingWebhookConfiguration` resource to clusters individually:
 ```bash
-$ kubectl apply -f istio/$ISTIO_VERSION/src/mutating-webhook-configuration.yaml --context cluster1
-$ kubectl apply -f istio/$ISTIO_VERSION/src/mutating-webhook-configuration.yaml --context cluster2
+$ kubectl create -f istio/$ISTIO_VERSION/src/mutating-webhook-configuration.yaml --context cluster1
+$ kubectl create -f istio/$ISTIO_VERSION/src/mutating-webhook-configuration.yaml --context cluster2
 ```
 
 ## Istio Deployment Verification
-Verify Istio CRDs have been propagated to `cluster1`:
-```bash
-$ kubectl get crds --context cluster1 | grep istio
-apikeys.config.istio.io                                                   2018-10-24T15:17:48Z
-attributemanifests.config.istio.io                                        2018-10-24T15:17:52Z
-authorizations.config.istio.io                                            2018-10-24T15:17:56Z
-checknothings.config.istio.io                                             2018-10-24T15:17:57Z
-circonuses.config.istio.io                                                2018-10-24T15:17:57Z
-deniers.config.istio.io                                                   2018-10-24T15:17:57Z
-destinationpolicies.config.istio.io                                       2018-10-24T15:17:58Z
-destinationrules.networking.istio.io                                      2018-10-24T15:17:59Z
-egressrules.config.istio.io                                               2018-10-24T15:17:59Z
-fluentds.config.istio.io                                                  2018-10-24T15:18:00Z
-gateways.networking.istio.io                                              2018-10-24T15:18:00Z
-httpapispecbindings.config.istio.io                                       2018-10-24T15:18:01Z
-httpapispecs.config.istio.io                                              2018-10-24T15:18:02Z
-kubernetesenvs.config.istio.io                                            2018-10-24T15:18:02Z
-kuberneteses.config.istio.io                                              2018-10-24T15:18:03Z
-listcheckers.config.istio.io                                              2018-10-24T15:18:04Z
-listentries.config.istio.io                                               2018-10-24T15:18:04Z
-logentries.config.istio.io                                                2018-10-24T15:18:05Z
-memquotas.config.istio.io                                                 2018-10-24T15:18:06Z
-metrics.config.istio.io                                                   2018-10-24T15:18:06Z
-noops.config.istio.io                                                     2018-10-24T15:18:07Z
-opas.config.istio.io                                                      2018-10-24T15:18:08Z
-policies.authentication.istio.io                                          2018-10-24T15:18:08Z
-prometheuses.config.istio.io                                              2018-10-24T15:18:09Z
-quotas.config.istio.io                                                    2018-10-24T15:18:10Z
-quotaspecbindings.config.istio.io                                         2018-10-24T15:18:10Z
-quotaspecs.config.istio.io                                                2018-10-24T15:18:11Z
-rbacs.config.istio.io                                                     2018-10-24T15:18:12Z
-reportnothings.config.istio.io                                            2018-10-24T15:18:12Z
-routerules.config.istio.io                                                2018-10-24T15:18:13Z
-rules.config.istio.io                                                     2018-10-24T15:18:14Z
-servicecontrolreports.config.istio.io                                     2018-10-24T15:18:14Z
-servicecontrols.config.istio.io                                           2018-10-24T15:18:15Z
-serviceentries.networking.istio.io                                        2018-10-24T15:18:15Z
-servicerolebindings.config.istio.io                                       2018-10-24T15:18:16Z
-serviceroles.config.istio.io                                              2018-10-24T15:18:17Z
-solarwindses.config.istio.io                                              2018-10-24T15:18:18Z
-stackdrivers.config.istio.io                                              2018-10-24T15:18:18Z
-statsds.config.istio.io                                                   2018-10-24T15:18:19Z
-stdios.config.istio.io                                                    2018-10-24T15:18:20Z
-tracespans.config.istio.io                                                2018-10-24T15:18:20Z
-virtualservices.networking.istio.io                                       2018-10-24T15:18:21Z
-```
 
-Verify Istio configmaps have been propagated to `cluster1`:
 ```bash
-$ kubectl get configmaps -n istio-system --context cluster1
-NAME                              DATA      AGE
-istio                             1         20s
-istio-galley-configuration        1         20s
-istio-grafana-custom-resources    2         20s
-istio-mixer-custom-resources      1         19s
-istio-security-custom-resources   2         19s
-istio-sidecar-injector            1         19s
-istio-statsd-prom-bridge          1         18s
-prometheus                        1         19s
+$ kubectl get pods -n istio-system --context cluster1
+NAME                                      READY     STATUS      RESTARTS   AGE
+istio-citadel-6f875b9fdb-fg6n8            1/1       Running     0          2m
+istio-cleanup-old-ca-xxspl                0/1       Completed   0          2m
+istio-egressgateway-8b98f49f6-mfsxb       1/1       Running     0          2m
+istio-ingress-69c65cc9dd-dwk7x            1/1       Running     0          2m
+istio-ingressgateway-657d7c54fb-qv4j6     1/1       Running     0          2m
+istio-mixer-post-install-bmwtl            0/1       Error       0          2m
+istio-mixer-post-install-bqxqs            0/1       Completed   0          2m
+istio-mixer-post-install-xsbkg            0/1       Error       0          2m
+istio-pilot-7cfb4cc676-nfhs5              2/2       Running     0          2m
+istio-policy-7c4448ccf6-btj85             2/2       Running     0          2m
+istio-sidecar-injector-fc9dd55f7-t7dp9    1/1       Running     0          2m
+istio-statsd-prom-bridge-9c78dbbc-gzwsz   1/1       Running     0          2m
+istio-telemetry-785947f8c8-smbcr          2/2       Running     0          2m
+prometheus-9c994b8db-zj7n8                1/1       Running     0          2m
 ```
+__Note__: You may see pods with the prefix `istio-mixer-post-install` in an error state. This is common and you only
+need 1 of these pods to be in a `Completed` state.
 
-Verify Istio serviceaccounts have been propagated to `cluster1`:
-```bash
-$ kubectl get serviceaccounts -n istio-system --context cluster1
-NAME                                     SECRETS   AGE
-default                                  1         18m
-istio-citadel-service-account            1         10s
-istio-cleanup-old-ca-service-account     1         10s
-istio-egressgateway-service-account      1         10s
-istio-ingress-service-account            1         10s
-istio-ingressgateway-service-account     1         10s
-istio-mixer-post-install-account         1         9s
-istio-mixer-service-account              1         10s
-istio-pilot-service-account              1         9s
-istio-sidecar-injector-service-account   1         8s
-prometheus                               1         9s
-```
-
-Verify Istio clusterroles have been propagated to `cluster1`:
-```bash
-$ kubectl get clusterroles --context cluster1 | grep istio
-istio-citadel-istio-system                                             5m
-istio-cleanup-old-ca-istio-system                                      5m
-istio-ingress-istio-system                                             5m
-istio-mixer-istio-system                                               5m
-istio-mixer-post-install-istio-system                                  5m
-istio-pilot-istio-system                                               5m
-istio-sidecar-injector-istio-system                                    5m
-prometheus-istio-system                                                5m
-```
-
-Verify Istio clusterrolebindings have been propagated to `cluster1`:
-```bash
-$ kubectl get clusterrolebinding --context cluster1 | grep istio
-istio-citadel-istio-system                               44s
-istio-ingress-istio-system                               43s
-istio-mixer-admin-role-binding-istio-system              43s
-istio-mixer-post-install-role-binding-istio-system       43s
-istio-pilot-istio-system                                 43s
-istio-sidecar-injector-admin-role-binding-istio-system   42s
-prometheus-istio-system                                  43s
-```
-
-Verify Istio roles have been propagated to `cluster1`:
-```bash
-$ kubectl -n istio-system get roles --context cluster1
-NAME                                AGE
-istio-cleanup-old-ca-istio-system   27s
-```
-
-Verify Istio rolebindings have been propagated to `cluster1`:
-```bash
-$ kubectl -n istio-system get rolebindings --context cluster1
-NAME                                AGE
-istio-cleanup-old-ca-istio-system   27s
-```
-
-Verify Istio services have been propagated to `cluster1`. __Note:__: `istio-ingress` uses service type `LoadBalancer`.
-It may take several minutes for the EXTERNAL-IP field to be populated. This type of service requires cloud load-balancer
-support. Reference the [Kubernetes Services](https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer)
-documentation to learn more.
-```bash
-$ kubectl -n istio-system get services --context cluster1
-NAME                       TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)                                                               AGE
-istio-citadel              ClusterIP      10.109.179.4     <none>        8060/TCP,9093/TCP                                                     20s
-istio-egressgateway        ClusterIP      10.107.231.74    <none>        80/TCP,443/TCP                                                        19s
-istio-ingress              LoadBalancer   10.110.46.69     <pending>     80:32000/TCP,443:30495/TCP                                            19s
-istio-ingressgateway       NodePort       10.109.163.96    <none>        80:31380/TCP,443:31390/TCP,31400:31400/TCP                            19s
-istio-pilot                ClusterIP      10.111.223.75    <none>        15003/TCP,15005/TCP,15007/TCP,15010/TCP,15011/TCP,8080/TCP,9093/TCP   19s
-istio-policy               ClusterIP      10.106.1.236     <none>        9091/TCP,15004/TCP,9093/TCP                                           19s
-istio-sidecar-injector     ClusterIP      10.108.206.133   <none>        443/TCP                                                               18s
-istio-statsd-prom-bridge   ClusterIP      10.97.122.243    <none>        9102/TCP,9125/UDP                                                     18s
-istio-telemetry            ClusterIP      10.101.57.160    <none>        9091/TCP,15004/TCP,9093/TCP,42422/TCP                                 17s
-prometheus                 ClusterIP      10.109.35.241    <none>        9090/TCP                                                              18s
-```
-
-Verify Istio mutatingwebhookconfigurations have been propagated to `cluster1`:
-```bash
-$ kubectl get mutatingwebhookconfigurations --context cluster1
-NAME                     CREATED AT
-istio-sidecar-injector   2018-10-24T16:11:55Z
-```
-
-Verify Istio deployments have been propagated to `cluster1`. Make sure each deployment show the 1 under the AVAILABLE
-column:
-```bash
-$ kubectl -n istio-system get deployments --context cluster1
-NAME                     DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-istio-citadel            1         1         1            1           5m
-istio-egressgateway      1         1         1            1           5m
-istio-ingress            1         1         1            1           5m
-istio-ingressgateway     1         1         1            1           5m
-istio-pilot              1         1         1            1           5m
-istio-policy             1         1         1            1           5m
-istio-sidecar-injector   1         1         1            1           5m
-istio-statsd-prom-bridge 1         1         1            1           5m
-istio-telemetry          1         1         1            1           5m
-prometheus               1         1         1            1           5m
-```
-
-Verify Istio jobs have been propagated to `cluster1`:
-```bash
-$ kubectl get jobs -n istio-system --context cluster1
-NAME                       DESIRED   SUCCESSFUL   AGE
-istio-cleanup-old-ca       1         1            10s
-istio-mixer-post-install   1         1            10s
-```
-
-Verify Istio horizontalpodautoscalers have been propagated to `cluster1`:
-```bash
-$ kubectl get horizontalpodautoscalers -n istio-system --context cluster1
-NAME                   REFERENCE                         TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
-istio-egressgateway    Deployment/istio-egressgateway    <unknown>/80%   1         1         0          17s
-istio-ingress          Deployment/istio-ingress          <unknown>/80%   1         1         0          16s
-istio-ingressgateway   Deployment/istio-ingressgateway   <unknown>/80%   1         1         0          16s
-```
-Repeat the above commands, replacing `cluster1` with `cluster2`, to verify resource propagation to `cluster2`.
+Your Federated Istio meshes are now ready to run applications. You can now proceed to the Bookinfo Deployment
+section. You can view other details of the Istio installation by replacing `pods` with the correct resource
+name (i.e. `configmaps`) or the federated equivalent (i.e. federatedconfigmaps).
 
 ## Bookinfo Deployment
 Label the default namespace with `istio-injection=enabled`:
@@ -296,30 +150,23 @@ kube-system                Active    1h
 Install the [bookinfo](https://istio.io/docs/examples/bookinfo/) sample application to verify Istio is operating
 properly:
 ```bash
-$ kubectl apply -f istio/$ISTIO_VERSION/samples/bookinfo/bookinfo.yaml
+$ kubectl create -f istio/$ISTIO_VERSION/samples/bookinfo/bookinfo.yaml
 ```
 
-Verify the bookinfo deployments have been propagated to both clusters.
+Verify the bookinfo pods have been propagated to both clusters.
 ```bash
-$ kubectl get deployments --context cluster1
-NAME             DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-details-v1       1         1         1            1           4m
-productpage-v1   1         1         1            1           4m
-reviews-v1       1         1         1            1           4m
-reviews-v2       1         1         1            1           4m
-reviews-v3       1         1         1            1           4m
+$ kubectl get pod --context cluster1
+NAME                             READY     STATUS    RESTARTS   AGE
+NAME                             READY     STATUS    RESTARTS   AGE
+details-v1-fd75f896d-72x4l       2/2       Running   0          13s
+productpage-v1-57f4d6b98-f7dkz   2/2       Running   0          9s
+ratings-v1-6ff8679f7b-kphr4      2/2       Running   0          13s
+reviews-v1-5b66f78dc9-kr2jw      2/2       Running   0          11s
+reviews-v2-5d6d58488c-tr982      2/2       Running   0          10s
+reviews-v3-5469468cff-5f9fk      2/2       Running   0          9s
 ```
 
-Verify the bookinfo services have been propagated to both clusters.
-```bash
-$ kubectl get services --context cluster1
-NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
-details       ClusterIP   10.107.10.36     <none>        9080/TCP   5m
-kubernetes    ClusterIP   10.96.0.1        <none>        443/TCP    1h
-productpage   ClusterIP   10.111.161.112   <none>        9080/TCP   5m
-reviews       ClusterIP   10.96.84.246     <none>        9080/TCP   5m
-```
-Repeat the above commands, replacing `cluster1` with `cluster2`, to verify resource propagation to `cluster2`.
+Repeat the above command, replacing `cluster1` with `cluster2`, to verify resource propagation to `cluster2`.
 
 Federate the Istio `Gateway and `VirtualService` resources:
 ```bash
@@ -331,11 +178,32 @@ $ kubefed2 federate --namespaced=true --group=networking.istio.io \
 
 Define the Istio ingress gateway for the bookinfo application:
 ```bash
-$ kubectl istio/$ISTIO_VERSION/samples/bookinfo/bookinfo-gateway.yaml
+$ kubectl create -f istio/$ISTIO_VERSION/samples/bookinfo/bookinfo-gateway.yaml
 ```
+
+You can verify the status of the Istio `Gateway` and `VirtualService resources with:
+```bash
+$ kubectl get gateways --context cluster1
+NAME               AGE
+bookinfo-gateway   17s
+
+$ kubectl get virtualservices --context cluster1
+NAME       AGE
+bookinfo   26s
+```
+Repeat the above command, replacing `cluster1` with `cluster2`, to verify resource propagation to `cluster2`.
+
+Follow the official Istio
+[bookinfo documentation](https://archive.istio.io/v0.8/docs/guides/bookinfo/#determining-the-ingress-ip-and-port) for
+determining the Ingress IP address and port for testing.
 
 ## Cleanup
 
+Uninstall the bookinfo ingress gateway:
+```bash
+$ kubectl delete -f istio/$ISTIO_VERSION/samples/bookinfo/bookinfo-gateway.yaml
+
+```
 Uninstall the bookinfo sample application:
 ```bash
 $ kubectl delete -f istio/$ISTIO_VERSION/samples/bookinfo/bookinfo.yaml
@@ -355,9 +223,12 @@ kubectl delete -f istio/$ISTIO_VERSION/serviceaccounts
 kubectl delete -f istio/$ISTIO_VERSION/configmaps
 kubectl delete -f istio/$ISTIO_VERSION/crds
 kubectl delete -f istio/$ISTIO_VERSION/namespaces
+kubectl delete -f istio/$ISTIO_VERSION/src/mutating-webhook-configuration.yaml --context cluster1
+kubectl delete -f istio/$ISTIO_VERSION/src/mutating-webhook-configuration.yaml --context cluster2
 ```
 
 Uninstall the federation-v2 control-plane by changing to the federation-v2 project root directory and run:
 ```bash
+cd $GOPATH/src/github.com/kubernetes-sigs/federation-v2
 ./scripts/delete-federation.sh
 ```

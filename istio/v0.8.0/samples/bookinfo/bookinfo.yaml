@@ -81,11 +81,13 @@ metadata:
   labels:
     app: ratings
 spec:
-  ports:
-  - port: 9080
-    name: http
-  selector:
-    app: ratings
+  template:
+    spec:
+      ports:
+      - port: 9080
+        name: http
+      selector:
+        app: ratings
 ---
 apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedServicePlacement
@@ -105,21 +107,19 @@ metadata:
 spec:
   template:
     spec:
+      replicas: 1
       template:
+        metadata:
+          labels:
+            app: ratings
+            version: v1
         spec:
-          replicas: 1
-          template:
-            metadata:
-              labels:
-                app: ratings
-                version: v1
-            spec:
-              containers:
-              - name: ratings
-                image: istio/examples-bookinfo-ratings-v1:1.5.0
-                imagePullPolicy: IfNotPresent
-                ports:
-                - containerPort: 9080
+          containers:
+          - name: ratings
+            image: istio/examples-bookinfo-ratings-v1:1.5.0
+            imagePullPolicy: IfNotPresent
+            ports:
+            - containerPort: 9080
 ---
 apiVersion: generated.federation.k8s.io/v1alpha1
 kind: FederatedDeploymentPlacement
