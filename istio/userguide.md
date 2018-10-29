@@ -21,6 +21,10 @@ You need 2 or more Kubernetes v1.11 or greater clusters. Follow the fed-v2
 for deploying k8s clusters/fed-v2 control-plane. The [fedv2-manifests](https://github.com/danehans/fedv2-manifests)
 project contains manifests for installing Federated Istio.
 
+Use the correct environment:
+https://github.com/kubernetes-sigs/federation-v2/tree/master/docs/environments
+
+
 ## Federation v2 Deployment
 __TODOs__:
 - Cut a release of fedv2-manifests that includes kubefed2 bin, install.yaml that references danehans:test
@@ -34,6 +38,8 @@ project contains manifests for installing Federated Istio.
 Fed-v2 includes `core` federated resources such as `FederatedDeployment`, `FederatedConfigMap`, etc.. Use
 `kubectl get federatedtypeconfigs -n federation-system` to view the list of federated type configs deployed by default.
 Use the `kubefed2 federate` command to federate additional resources required for Istio. For example:
+
+## Federated Istio Deployment
 
 __TODO__: Steps for downlaoding fedv2-manifests release, extracting tarball and copying kubefedv2 bin to /use/local/bin
 and chmod+x
@@ -56,16 +62,17 @@ kubefed2 federate --namespaced=true --group=extensions --version=v1beta1 \
 --kind=Deployment
 ```
 __Note__: Istio v.0.8.0 uses version `v1beta1` of the `Deployment` resource, while the Federation-v2 `core` group API
-includes `v1` of this type. Use `kubectl get federateddeployments.generated -n istio-system` to view version `v1beta1`
+includes `v1`. Use `kubectl get federateddeployments.generated -n istio-system` to view version `v1beta1`
 of the `FederatedDeployment` resource.
 
 You must update the fedv2 service account clusterrole for each target cluster due to
 [issue #354](https://github.com/kubernetes-sigs/federation-v2/issues/354):
 ```bash
-$ kubectl patch clusterrole/federation-controller-manager:cluster1-cluster1 \
+kubectl patch clusterrole/federation-controller-manager:cluster1-cluster1 \
 -p='{"rules":[{"apiGroups":["*"],"resources":["*"],"verbs":["*"]},{"nonResourceURLs":["/metrics"],"verbs":["get"]}]}' \
 --context cluster1
-$ kubectl patch clusterrole/federation-controller-manager:cluster2-cluster1 \
+
+kubectl patch clusterrole/federation-controller-manager:cluster2-cluster1 \
 -p='{"rules":[{"apiGroups":["*"],"resources":["*"],"verbs":["*"]},{"nonResourceURLs":["/metrics"],"verbs":["get"]}]}' \
 --context cluster2
 ```
@@ -77,23 +84,12 @@ export ISTIO_VERSION=v0.8.0
 
 Change to the fedv2-manifests project root directory and use `kubectl` to install the Federated Istio manifests.
 
-__Note__: The `istio/$ISTIO_VERSION0/services/federatedservice-ingress-gateway-template.yaml` manifest uses
+__Note__: The `istio/$ISTIO_VERSION/services/federatedservice-ingress-gateway-template.yaml` manifest uses
 `type: LoadBalancer`. If you intend on deploying Federated Istio to clusters that use another type to expose
 services, you must change this field. An override manifest can be used to accomplish this once
-([issue #367](https://github.com/kubernetes-sigs/federation-v2/issues/367)) is implemented.
+([issue #367](https://github.com/kubernetes-sigs/federation-v2/issues/367)) is resolved.
 ```bash
-kubectl create -f istio/$ISTIO_VERSION/namespaces
-kubectl create -f istio/$ISTIO_VERSION/crds
-kubectl create -f istio/$ISTIO_VERSION/configmaps
-kubectl create -f istio/$ISTIO_VERSION/serviceaccounts
-kubectl create -f istio/$ISTIO_VERSION/clusterroles
-kubectl create -f istio/$ISTIO_VERSION/clusterrolebindings
-kubectl create -f istio/$ISTIO_VERSION/roles
-kubectl create -f istio/$ISTIO_VERSION/rolebindings
-kubectl create -f istio/$ISTIO_VERSION/services
-kubectl create -f istio/$ISTIO_VERSION/deployments
-kubectl create -f istio/$ISTIO_VERSION/jobs
-kubectl create -f istio/$ISTIO_VERSION/horizontalpodautoscalers
+$ kubectl create -R -f istio/$ISTIO_VERSION/install/
 ```
 
 Since the sidecar-injector pod patches the client `caBundle` of the `MutatingWebhookConfiguration` resource with the
@@ -107,7 +103,7 @@ $ kubectl create -f istio/$ISTIO_VERSION/src/mutating-webhook-configuration.yaml
 ```
 
 ## Istio Deployment Verification
-
+Verify that all the Istio control-plane pods are running in `cluster1`.
 ```bash
 $ kubectl get pods -n istio-system --context cluster1
 NAME                                      READY     STATUS      RESTARTS   AGE
@@ -116,9 +112,7 @@ istio-cleanup-old-ca-xxspl                0/1       Completed   0          2m
 istio-egressgateway-8b98f49f6-mfsxb       1/1       Running     0          2m
 istio-ingress-69c65cc9dd-dwk7x            1/1       Running     0          2m
 istio-ingressgateway-657d7c54fb-qv4j6     1/1       Running     0          2m
-istio-mixer-post-install-bmwtl            0/1       Error       0          2m
 istio-mixer-post-install-bqxqs            0/1       Completed   0          2m
-istio-mixer-post-install-xsbkg            0/1       Error       0          2m
 istio-pilot-7cfb4cc676-nfhs5              2/2       Running     0          2m
 istio-policy-7c4448ccf6-btj85             2/2       Running     0          2m
 istio-sidecar-injector-fc9dd55f7-t7dp9    1/1       Running     0          2m
@@ -126,15 +120,14 @@ istio-statsd-prom-bridge-9c78dbbc-gzwsz   1/1       Running     0          2m
 istio-telemetry-785947f8c8-smbcr          2/2       Running     0          2m
 prometheus-9c994b8db-zj7n8                1/1       Running     0          2m
 ```
-__Note__: You may see pods with the prefix `istio-mixer-post-install` in an error state. This is common and you only
-need 1 of these pods to be in a `Completed` state.
+Repeat the above command, replacing `cluster1` with `cluster2`.
 
 Your Federated Istio meshes are now ready to run applications. You can now proceed to the Bookinfo Deployment
 section. You can view other details of the Istio installation by replacing `pods` with the correct resource
 name (i.e. `configmaps`) or the federated equivalent (i.e. federatedconfigmaps).
 
 ## Bookinfo Deployment
-Label the default namespace with `istio-injection=enabled`:
+Label the default namespace with `istio-injection=enabled`.
 ```bash
 $ kubectl label namespace default istio-injection=enabled
 $ kubectl get namespace -L istio-injection --context cluster1
@@ -148,7 +141,7 @@ kube-system                Active    1h
 ```
 
 Install the [bookinfo](https://istio.io/docs/examples/bookinfo/) sample application to verify Istio is operating
-properly:
+properly.
 ```bash
 $ kubectl create -f istio/$ISTIO_VERSION/samples/bookinfo/bookinfo.yaml
 ```
@@ -196,6 +189,33 @@ Repeat the above command, replacing `cluster1` with `cluster2`, to verify resour
 Follow the official Istio
 [bookinfo documentation](https://archive.istio.io/v0.8/docs/guides/bookinfo/#determining-the-ingress-ip-and-port) for
 determining the Ingress IP address and port for testing.
+
+## Federated DNS
+__TODO__: Add docs about fed dns.
+
+```bash
+$ kubectl create -f istio/v0.8.0/samples/bookinfo/bookinfo-dns.yaml
+```
+
+It's time to upgrade the bookinfo app in `cluster2`. Update the Istio ingress gateway `FederatedServicePlacement`
+resource so that the bookinfo ``FederatedService` resource only exists in `cluster1`.
+```bash
+$ kubectl patch -n istio-system federatedserviceplacement/istio-ingressgateway \
+--type=merge -p '{"spec":{"clusterNames":["cluster1"]}}'
+```
+
+Verify the resource no longer exists in `cluster2`.
+```bash
+$ kubectl get svc -n istio-system --context cluster2 | grep istio-ingressgateway
+```
+
+Due to [issue #368](https://github.com/kubernetes-sigs/federation-v2/issues/368), the ServiceDNS controller does not
+properly update the `DNSEndpoint` resource. This causes DNS A and CNAME resource records for the istio-ingressgateway
+for `cluster2` to exist. Use the `kubectl patch` command to update the istio-ingressgateway `DNSEndpoint` resource so
+the DNS records are properly updated. Here is an example:
+```bash
+$ kubectl patch -n istio-system dnsendpoint/service-istio-ingressgateway --type=merge -p '{"spec":{"endpoints":[{"dnsName":"istio-ingressgateway.istio-system.federation-system.svc.example.com","recordTTL":300,"recordType":"A","targets":["35.197.115.228"]},{"dnsName":"istio-ingressgateway.istio-system.federation-system.svc.us-west1-b.us-west1.example.com","recordTTL":300,"recordType":"A","targets":["35.197.115.228"]},{"dnsName":"istio-ingressgateway.istio-system.federation-system.svc.us-west1.example.com","recordTTL":300,"recordType":"A","targets":["35.197.115.228"]}]}}'
+```
 
 ## Cleanup
 
