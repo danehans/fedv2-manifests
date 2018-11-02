@@ -1109,7 +1109,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRole
 metadata:
   name: istio-cleanup-secrets-istio-system
@@ -1129,7 +1129,7 @@ spec:
       resources: ["secrets"]
       verbs: ["list", "delete"]
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRolePlacement
 metadata:
   name: istio-cleanup-secrets-istio-system
@@ -1147,7 +1147,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBinding
 metadata:
   name: istio-cleanup-secrets-istio-system
@@ -1171,7 +1171,7 @@ spec:
         name: istio-cleanup-secrets-service-account
         namespace: istio-system
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBindingPlacement
 metadata:
   name: istio-cleanup-secrets-istio-system
@@ -1282,7 +1282,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRole
 metadata:
   name: istio-security-post-install-istio-system
@@ -1307,7 +1307,7 @@ spec:
       resources: ["deployments", "replicasets"]
       verbs: ["get", "list", "watch"]
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRolePlacement
 metadata:
   name: istio-security-post-install-istio-system
@@ -1321,7 +1321,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBinding
 metadata:
   name: istio-security-post-install-role-binding-istio-system
@@ -1341,7 +1341,7 @@ spec:
         name: istio-security-post-install-account
         namespace: istio-system
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBindingPlacement
 metadata:
   name: istio-security-post-install-role-binding-istio-system
@@ -1476,7 +1476,7 @@ spec:
   - cluster1
 ---
 # Source: istio/templates/crds.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: virtualservices.networking.istio.io
@@ -1499,7 +1499,7 @@ spec:
       scope: Namespaced
       version: v1alpha3
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: virtualservices.networking.istio.io
@@ -1512,7 +1512,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: destinationrules.networking.istio.io
@@ -1535,7 +1535,7 @@ spec:
       scope: Namespaced
       version: v1alpha3
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: destinationrules.networking.istio.io
@@ -1548,7 +1548,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: serviceentries.networking.istio.io
@@ -1571,7 +1571,7 @@ spec:
       scope: Namespaced
       version: v1alpha3
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: serviceentries.networking.istio.io
@@ -1584,7 +1584,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: gateways.networking.istio.io
@@ -1607,7 +1607,7 @@ spec:
       scope: Namespaced
       version: v1alpha3
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: gateways.networking.istio.io
@@ -1621,7 +1621,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: envoyfilters.networking.istio.io
@@ -1643,7 +1643,7 @@ spec:
       scope: Namespaced
       version: v1alpha3
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: envoyfilters.networking.istio.io
@@ -1657,7 +1657,7 @@ spec:
   - cluster1
 ---
 # These CRDs only make sense when security is enabled
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   annotations:
@@ -1677,7 +1677,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   annotations:
@@ -1688,7 +1688,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   annotations:
@@ -1708,7 +1708,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   annotations:
@@ -1719,7 +1719,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   annotations:
@@ -1739,7 +1739,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   annotations:
@@ -1750,7 +1750,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   annotations:
@@ -1770,7 +1770,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   annotations:
@@ -1782,7 +1782,7 @@ spec:
   - cluster1
 ---
 # Mixer CRDs
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: rules.config.istio.io
@@ -1806,7 +1806,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: rules.config.istio.io
@@ -1821,7 +1821,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: attributemanifests.config.istio.io
@@ -1845,7 +1845,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: attributemanifests.config.istio.io
@@ -1860,7 +1860,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: bypasses.config.istio.io
@@ -1884,7 +1884,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: bypasses.config.istio.io
@@ -1899,7 +1899,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: circonuses.config.istio.io
@@ -1923,7 +1923,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: circonuses.config.istio.io
@@ -1938,7 +1938,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: deniers.config.istio.io
@@ -1962,7 +1962,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: deniers.config.istio.io
@@ -1977,7 +1977,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: fluentds.config.istio.io
@@ -2001,7 +2001,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: fluentds.config.istio.io
@@ -2016,7 +2016,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: kubernetesenvs.config.istio.io
@@ -2040,7 +2040,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: kubernetesenvs.config.istio.io
@@ -2055,7 +2055,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: listcheckers.config.istio.io
@@ -2079,7 +2079,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: listcheckers.config.istio.io
@@ -2094,7 +2094,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: memquotas.config.istio.io
@@ -2118,7 +2118,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: memquotas.config.istio.io
@@ -2133,7 +2133,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: noops.config.istio.io
@@ -2157,7 +2157,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: noops.config.istio.io
@@ -2172,7 +2172,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: opas.config.istio.io
@@ -2196,7 +2196,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: opas.config.istio.io
@@ -2211,7 +2211,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: prometheuses.config.istio.io
@@ -2235,7 +2235,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: prometheuses.config.istio.io
@@ -2250,7 +2250,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: rbacs.config.istio.io
@@ -2274,7 +2274,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: rbacs.config.istio.io
@@ -2289,7 +2289,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: redisquotas.config.istio.io
@@ -2309,7 +2309,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: redisquotas.config.istio.io
@@ -2323,7 +2323,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: servicecontrols.config.istio.io
@@ -2348,7 +2348,7 @@ spec:
       version: v1alpha2
 
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: servicecontrols.config.istio.io
@@ -2363,7 +2363,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: signalfxs.config.istio.io
@@ -2387,7 +2387,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: signalfxs.config.istio.io
@@ -2402,7 +2402,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: solarwindses.config.istio.io
@@ -2426,7 +2426,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: solarwindses.config.istio.io
@@ -2441,7 +2441,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: stackdrivers.config.istio.io
@@ -2465,7 +2465,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: stackdrivers.config.istio.io
@@ -2480,7 +2480,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: cloudwatches.config.istio.io
@@ -2504,7 +2504,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: cloudwatches.config.istio.io
@@ -2519,7 +2519,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: dogstatsds.config.istio.io
@@ -2543,7 +2543,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: dogstatsds.config.istio.io
@@ -2558,7 +2558,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: statsds.config.istio.io
@@ -2582,7 +2582,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: statsds.config.istio.io
@@ -2597,7 +2597,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: stdios.config.istio.io
@@ -2621,7 +2621,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: stdios.config.istio.io
@@ -2636,7 +2636,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: apikeys.config.istio.io
@@ -2660,7 +2660,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: apikeys.config.istio.io
@@ -2675,7 +2675,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: authorizations.config.istio.io
@@ -2699,7 +2699,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: authorizations.config.istio.io
@@ -2714,7 +2714,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: checknothings.config.istio.io
@@ -2738,7 +2738,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: checknothings.config.istio.io
@@ -2753,7 +2753,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: kuberneteses.config.istio.io
@@ -2777,7 +2777,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: kuberneteses.config.istio.io
@@ -2792,7 +2792,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: listentries.config.istio.io
@@ -2816,7 +2816,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: listentries.config.istio.io
@@ -2831,7 +2831,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: logentries.config.istio.io
@@ -2855,7 +2855,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: logentries.config.istio.io
@@ -2870,7 +2870,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: edges.config.istio.io
@@ -2894,7 +2894,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: edges.config.istio.io
@@ -2909,7 +2909,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: metrics.config.istio.io
@@ -2933,7 +2933,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: metrics.config.istio.io
@@ -2948,7 +2948,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: quotas.config.istio.io
@@ -2972,7 +2972,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: quotas.config.istio.io
@@ -2987,7 +2987,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: reportnothings.config.istio.io
@@ -3011,7 +3011,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: reportnothings.config.istio.io
@@ -3026,7 +3026,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: servicecontrolreports.config.istio.io
@@ -3050,7 +3050,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: servicecontrolreports.config.istio.io
@@ -3065,7 +3065,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: tracespans.config.istio.io
@@ -3089,7 +3089,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: tracespans.config.istio.io
@@ -3104,7 +3104,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: rbacconfigs.rbac.istio.io
@@ -3128,7 +3128,7 @@ spec:
       scope: Namespaced
       version: v1alpha1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: rbacconfigs.rbac.istio.io
@@ -3143,7 +3143,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: serviceroles.rbac.istio.io
@@ -3167,7 +3167,7 @@ spec:
       scope: Namespaced
       version: v1alpha1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: serviceroles.rbac.istio.io
@@ -3182,7 +3182,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: servicerolebindings.rbac.istio.io
@@ -3206,7 +3206,7 @@ spec:
       scope: Namespaced
       version: v1alpha1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: servicerolebindings.rbac.istio.io
@@ -3221,7 +3221,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: adapters.config.istio.io
@@ -3245,7 +3245,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: adapters.config.istio.io
@@ -3260,7 +3260,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: instances.config.istio.io
@@ -3284,7 +3284,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: instances.config.istio.io
@@ -3299,7 +3299,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: templates.config.istio.io
@@ -3323,7 +3323,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: templates.config.istio.io
@@ -3338,7 +3338,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinition
 metadata:
   name: handlers.config.istio.io
@@ -3362,7 +3362,7 @@ spec:
       scope: Namespaced
       version: v1alpha2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedCustomResourceDefinitionPlacement
 metadata:
   name: handlers.config.istio.io
@@ -3378,7 +3378,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/galley/templates/clusterrole.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRole
 metadata:
   name: istio-galley-istio-system
@@ -3405,7 +3405,7 @@ spec:
       resourceNames: ["istio-galley"]
       verbs: ["get"]
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRolePlacement
 metadata:
   name: istio-galley-istio-system
@@ -3420,7 +3420,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/gateways/templates/clusterrole.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRole
 metadata:
   labels:
@@ -3436,7 +3436,7 @@ spec:
       resources: ["thirdpartyresources", "virtualservices", "destinationrules", "gateways"]
       verbs: ["get", "watch", "list", "update"]
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRolePlacement
 metadata:
   labels:
@@ -3450,7 +3450,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRole
 metadata:
   labels:
@@ -3466,7 +3466,7 @@ spec:
       resources: ["thirdpartyresources", "virtualservices", "destinationrules", "gateways"]
       verbs: ["get", "watch", "list", "update"]
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRolePlacement
 metadata:
   labels:
@@ -3481,7 +3481,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/mixer/templates/clusterrole.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRole
 metadata:
   name: istio-mixer-istio-system
@@ -3513,7 +3513,7 @@ spec:
       verbs: ["get", "list", "watch"]
 
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRolePlacement
 metadata:
   name: istio-mixer-istio-system
@@ -3528,7 +3528,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/pilot/templates/clusterrole.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRole
 metadata:
   name: istio-pilot-istio-system
@@ -3568,7 +3568,7 @@ spec:
       resources: ["namespaces", "nodes", "secrets"]
       verbs: ["get", "list", "watch"]
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRolePlacement
 metadata:
   name: istio-pilot-istio-system
@@ -3583,7 +3583,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/prometheus/templates/clusterrole.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRole
 metadata:
   name: prometheus-istio-system
@@ -3605,7 +3605,7 @@ spec:
     - nonResourceURLs: ["/metrics"]
       verbs: ["get"]
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRolePlacement
 metadata:
   name: prometheus-istio-system
@@ -3615,7 +3615,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/security/templates/clusterrole.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRole
 metadata:
   name: istio-citadel-istio-system
@@ -3637,7 +3637,7 @@ spec:
       resources: ["services"]
       verbs: ["get", "watch", "list"]
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRolePlacement
 metadata:
   name: istio-citadel-istio-system
@@ -3652,7 +3652,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/sidecarInjectorWebhook/templates/clusterrole.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRole
 metadata:
   name: istio-sidecar-injector-istio-system
@@ -3671,7 +3671,7 @@ spec:
       resources: ["mutatingwebhookconfigurations"]
       verbs: ["get", "list", "watch", "patch"]
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRolePlacement
 metadata:
   name: istio-sidecar-injector-istio-system
@@ -3686,7 +3686,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/galley/templates/clusterrolebinding.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBinding
 metadata:
   name: istio-galley-admin-role-binding-istio-system
@@ -3706,7 +3706,7 @@ spec:
         name: istio-galley-service-account
         namespace: istio-system
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBindingPlacement
 metadata:
   name: istio-galley-admin-role-binding-istio-system
@@ -3721,7 +3721,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/gateways/templates/clusterrolebindings.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBinding
 metadata:
   name: istio-egressgateway-istio-system
@@ -3736,7 +3736,7 @@ spec:
         name: istio-egressgateway-service-account
         namespace: istio-system
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBindingPlacement
 metadata:
   name: istio-egressgateway-istio-system
@@ -3745,7 +3745,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBinding
 metadata:
   name: istio-ingressgateway-istio-system
@@ -3760,7 +3760,7 @@ spec:
         name: istio-ingressgateway-service-account
         namespace: istio-system
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBindingPlacement
 metadata:
   name: istio-ingressgateway-istio-system
@@ -3770,7 +3770,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/mixer/templates/clusterrolebinding.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBinding
 metadata:
   name: istio-mixer-admin-role-binding-istio-system
@@ -3790,7 +3790,7 @@ spec:
         name: istio-mixer-service-account
         namespace: istio-system
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBindingPlacement
 metadata:
   name: istio-mixer-admin-role-binding-istio-system
@@ -3805,7 +3805,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/pilot/templates/clusterrolebinding.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBinding
 metadata:
   name: istio-pilot-istio-system
@@ -3825,7 +3825,7 @@ spec:
         name: istio-pilot-service-account
         namespace: istio-system
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBindingPlacement
 metadata:
   name: istio-pilot-istio-system
@@ -3840,7 +3840,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/prometheus/templates/clusterrolebindings.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBinding
 metadata:
   name: prometheus-istio-system
@@ -3855,7 +3855,7 @@ spec:
       name: prometheus
       namespace: istio-system
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBindingPlacement
 metadata:
   name: prometheus-istio-system
@@ -3870,7 +3870,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/security/templates/clusterrolebinding.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBinding
 metadata:
   name: istio-citadel-istio-system
@@ -3890,7 +3890,7 @@ spec:
         name: istio-citadel-service-account
         namespace: istio-system
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBindingPlacement
 metadata:
   name: istio-citadel-istio-system
@@ -3905,7 +3905,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/sidecarInjectorWebhook/templates/clusterrolebinding.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBinding
 metadata:
   name: istio-sidecar-injector-admin-role-binding-istio-system
@@ -3925,7 +3925,7 @@ spec:
         name: istio-sidecar-injector-service-account
         namespace: istio-system
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedClusterRoleBindingPlacement
 metadata:
   name: istio-sidecar-injector-admin-role-binding-istio-system
@@ -4304,7 +4304,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/galley/templates/deployment.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDeployment
 metadata:
   name: istio-galley
@@ -4420,7 +4420,7 @@ spec:
                     values:
                     - s390x
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDeploymentPlacement
 metadata:
   name: istio-galley
@@ -4437,7 +4437,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/gateways/templates/deployment.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDeployment
 metadata:
   name: istio-egressgateway
@@ -4578,7 +4578,7 @@ spec:
                     values:
                     - s390x
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDeploymentPlacement
 metadata:
   name: istio-egressgateway
@@ -4594,7 +4594,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDeployment
 metadata:
   name: istio-ingressgateway
@@ -4741,7 +4741,7 @@ spec:
                     values:
                     - s390x
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDeploymentPlacement
 metadata:
   name: istio-ingressgateway
@@ -4758,7 +4758,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/mixer/templates/deployment.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDeployment
 metadata:
   name: istio-policy
@@ -4896,7 +4896,7 @@ spec:
             - name: uds-socket
               mountPath: /sock
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDeploymentPlacement
 metadata:
   name: istio-policy
@@ -4910,7 +4910,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDeployment
 metadata:
   name: istio-telemetry
@@ -5015,7 +5015,7 @@ spec:
             - name: uds-socket
               mountPath: /sock
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDeploymentPlacement
 metadata:
   name: istio-telemetry
@@ -5030,7 +5030,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/pilot/templates/deployment.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDeployment
 metadata:
   name: istio-pilot
@@ -5186,7 +5186,7 @@ spec:
                     values:
                     - s390x
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDeploymentPlacement
 metadata:
   name: istio-pilot
@@ -5207,7 +5207,7 @@ spec:
 ---
 # Source: istio/charts/prometheus/templates/deployment.yaml
 # TODO: the original template has service account, roles, etc
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDeployment
 metadata:
   name: prometheus
@@ -5303,7 +5303,7 @@ spec:
                     values:
                     - s390x
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDeploymentPlacement
 metadata:
   name: prometheus
@@ -5320,7 +5320,7 @@ spec:
 ---
 # Source: istio/charts/security/templates/deployment.yaml
 # istio CA watching all namespaces
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDeployment
 metadata:
   name: istio-citadel
@@ -5393,7 +5393,7 @@ spec:
                     values:
                     - s390x
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDeploymentPlacement
 metadata:
   name: istio-citadel
@@ -5410,7 +5410,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/sidecarInjectorWebhook/templates/deployment.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDeployment
 metadata:
   name: istio-sidecar-injector
@@ -5525,7 +5525,7 @@ spec:
                     values:
                     - s390x
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDeploymentPlacement
 metadata:
   name: istio-sidecar-injector
@@ -5542,7 +5542,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/gateways/templates/autoscale.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedHorizontalPodAutoscaler
 metadata:
     name: istio-egressgateway
@@ -5562,7 +5562,7 @@ spec:
             name: cpu
             targetAverageUtilization: 80
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedHorizontalPodAutoscalerPlacement
 metadata:
   name: istio-egressgateway
@@ -5572,7 +5572,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedHorizontalPodAutoscaler
 metadata:
     name: istio-ingressgateway
@@ -5592,7 +5592,7 @@ spec:
             name: cpu
             targetAverageUtilization: 80
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedHorizontalPodAutoscalerPlacement
 metadata:
   name: istio-ingressgateway
@@ -5603,7 +5603,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/mixer/templates/autoscale.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedHorizontalPodAutoscaler
 metadata:
     name: istio-policy
@@ -5623,7 +5623,7 @@ spec:
             name: cpu
             targetAverageUtilization: 80
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedHorizontalPodAutoscalerPlacement
 metadata:
   name: istio-policy
@@ -5633,7 +5633,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedHorizontalPodAutoscaler
 metadata:
     name: istio-telemetry
@@ -5653,7 +5653,7 @@ spec:
             name: cpu
             targetAverageUtilization: 80
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedHorizontalPodAutoscalerPlacement
 metadata:
   name: istio-telemetry
@@ -5664,7 +5664,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/pilot/templates/autoscale.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedHorizontalPodAutoscaler
 metadata:
     name: istio-pilot
@@ -5684,7 +5684,7 @@ spec:
             name: cpu
             targetAverageUtilization: 80
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedHorizontalPodAutoscalerPlacement
 metadata:
   name: istio-pilot
