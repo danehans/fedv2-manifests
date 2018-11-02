@@ -4304,7 +4304,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/galley/templates/deployment.yaml
-apiVersion: primitives.federation.k8s.io/v1alpha1
+apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedDeployment
 metadata:
   name: istio-galley
@@ -4420,7 +4420,7 @@ spec:
                     values:
                     - s390x
 ---
-apiVersion: primitives.federation.k8s.io/v1alpha1
+apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedDeploymentPlacement
 metadata:
   name: istio-galley
@@ -4437,7 +4437,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/gateways/templates/deployment.yaml
-apiVersion: primitives.federation.k8s.io/v1alpha1
+apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedDeployment
 metadata:
   name: istio-egressgateway
@@ -4578,7 +4578,7 @@ spec:
                     values:
                     - s390x
 ---
-apiVersion: primitives.federation.k8s.io/v1alpha1
+apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedDeploymentPlacement
 metadata:
   name: istio-egressgateway
@@ -4594,7 +4594,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: primitives.federation.k8s.io/v1alpha1
+apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedDeployment
 metadata:
   name: istio-ingressgateway
@@ -4741,7 +4741,7 @@ spec:
                     values:
                     - s390x
 ---
-apiVersion: primitives.federation.k8s.io/v1alpha1
+apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedDeploymentPlacement
 metadata:
   name: istio-ingressgateway
@@ -4758,7 +4758,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/mixer/templates/deployment.yaml
-apiVersion: primitives.federation.k8s.io/v1alpha1
+apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedDeployment
 metadata:
   name: istio-policy
@@ -4896,7 +4896,7 @@ spec:
             - name: uds-socket
               mountPath: /sock
 ---
-apiVersion: primitives.federation.k8s.io/v1alpha1
+apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedDeploymentPlacement
 metadata:
   name: istio-policy
@@ -4910,7 +4910,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: primitives.federation.k8s.io/v1alpha1
+apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedDeployment
 metadata:
   name: istio-telemetry
@@ -5015,7 +5015,7 @@ spec:
             - name: uds-socket
               mountPath: /sock
 ---
-apiVersion: primitives.federation.k8s.io/v1alpha1
+apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedDeploymentPlacement
 metadata:
   name: istio-telemetry
@@ -5030,7 +5030,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/pilot/templates/deployment.yaml
-apiVersion: primitives.federation.k8s.io/v1alpha1
+apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedDeployment
 metadata:
   name: istio-pilot
@@ -5186,7 +5186,7 @@ spec:
                     values:
                     - s390x
 ---
-apiVersion: primitives.federation.k8s.io/v1alpha1
+apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedDeploymentPlacement
 metadata:
   name: istio-pilot
@@ -5207,7 +5207,7 @@ spec:
 ---
 # Source: istio/charts/prometheus/templates/deployment.yaml
 # TODO: the original template has service account, roles, etc
-apiVersion: primitives.federation.k8s.io/v1alpha1
+apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedDeployment
 metadata:
   name: prometheus
@@ -5303,7 +5303,7 @@ spec:
                     values:
                     - s390x
 ---
-apiVersion: primitives.federation.k8s.io/v1alpha1
+apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedDeploymentPlacement
 metadata:
   name: prometheus
@@ -5320,7 +5320,7 @@ spec:
 ---
 # Source: istio/charts/security/templates/deployment.yaml
 # istio CA watching all namespaces
-apiVersion: primitives.federation.k8s.io/v1alpha1
+apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedDeployment
 metadata:
   name: istio-citadel
@@ -5393,7 +5393,7 @@ spec:
                     values:
                     - s390x
 ---
-apiVersion: primitives.federation.k8s.io/v1alpha1
+apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedDeploymentPlacement
 metadata:
   name: istio-citadel
@@ -5410,7 +5410,7 @@ spec:
   - cluster1
 ---
 # Source: istio/charts/sidecarInjectorWebhook/templates/deployment.yaml
-apiVersion: primitives.federation.k8s.io/v1alpha1
+apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedDeployment
 metadata:
   name: istio-sidecar-injector
@@ -5525,7 +5525,7 @@ spec:
                     values:
                     - s390x
 ---
-apiVersion: primitives.federation.k8s.io/v1alpha1
+apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedDeploymentPlacement
 metadata:
   name: istio-sidecar-injector
