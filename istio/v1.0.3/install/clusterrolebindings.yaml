@@ -1,0 +1,105 @@
+
+
+# Source: istio/charts/gateways/templates/clusterrolebindings.yaml
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBinding
+metadata:
+  name: istio-egressgateway-istio-system
+spec:
+  template:
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: istio-egressgateway-istio-system
+    subjects:
+    - kind: ServiceAccount
+      name: istio-egressgateway-service-account
+      namespace: istio-system
+---
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBindingPlacement
+metadata:
+  name: istio-egressgateway-istio-system
+spec:
+  clusterNames:
+  - cluster2
+  - cluster1
+---
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBinding
+metadata:
+  name: istio-ingressgateway-istio-system
+spec:
+  template:
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: istio-ingressgateway-istio-system
+    subjects:
+    - kind: ServiceAccount
+      name: istio-ingressgateway-service-account
+      namespace: istio-system
+---
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBindingPlacement
+metadata:
+  name: istio-ingressgateway-istio-system
+spec:
+  clusterNames:
+  - cluster2
+  - cluster1
+---
+# Source: istio/charts/mixer/templates/clusterrolebinding.yaml
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBinding
+metadata:
+  name: istio-mixer-admin-role-binding-istio-system
+  labels:
+    app: mixer
+    chart: mixer-1.0.3
+    heritage: Tiller
+    release: istio
+spec:
+  template:
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: istio-mixer-istio-system
+    subjects:
+    - kind: ServiceAccount
+      name: istio-mixer-service-account
+      namespace: istio-system
+---
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBindingPlacement
+metadata:
+  name: istio-mixer-admin-role-binding-istio-system
+  labels:
+    app: mixer
+    chart: mixer-1.0.3
+    heritage: Tiller
+    release: istiospec:
+  clusterNames:
+  - cluster2
+  - cluster1
+---
+# Source: istio/charts/pilot/templates/clusterrolebinding.yaml
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBinding
+metadata:
+  name: istio-pilot-istio-system
+  labels:
+    app: istio-pilot
+    chart: pilot-1.0.3
+    heritage: Tiller
+    release: istio
+spec:
+  template:
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: istio-pilot-istio-system
+    subjects:
+    - kind: ServiceAccount
+      name: istio-pilot-service-account
+      namespace: istio-system

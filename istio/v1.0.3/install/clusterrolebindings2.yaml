@@ -1,0 +1,228 @@
+
+---
+# Source: istio/charts/galley/templates/clusterrolebinding.yaml
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBinding
+metadata:
+  name: istio-galley-admin-role-binding-istio-system
+  labels:
+    app: istio-galley
+    chart: galley-1.0.3
+    heritage: Tiller
+    release: istio
+spec:
+  template:
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: istio-galley-istio-system
+    subjects:
+    - kind: ServiceAccount
+      name: istio-galley-service-account
+      namespace: istio-system
+---
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBindingPlacement
+metadata:
+  name: istio-galley-admin-role-binding-istio-system
+  labels:
+    app: istio-galley
+    chart: galley-1.0.3
+    heritage: Tiller
+    release: istio
+spec:
+  clusterNames:
+  - cluster2
+  - cluster1
+---
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBinding
+metadata:
+  name: istio-security-post-install-role-binding-istio-system
+  labels:
+    app: istio-security
+    chart: security-1.0.3
+    heritage: Tiller
+    release: istio
+spec:
+  template:
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: istio-security-post-install-istio-system
+    subjects:
+    - kind: ServiceAccount
+      name: istio-security-post-install-account
+      namespace: istio-system
+---
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBindingPlacement
+metadata:
+  name: istio-security-post-install-role-binding-istio-system
+  labels:
+    app: istio-security
+    chart: security-1.0.3
+    heritage: Tiller
+    release: istio
+spec:
+  clusterNames:
+  - cluster2
+  - cluster1
+---
+
+
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBinding
+metadata:
+  name: istio-cleanup-secrets-istio-system
+  annotations:
+    "helm.sh/hook": post-delete
+    "helm.sh/hook-delete-policy": hook-succeeded
+    "helm.sh/hook-weight": "2"
+  labels:
+    app: security
+    chart: security-1.0.3
+    heritage: Tiller
+    release: istio
+spec:
+  template:
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: istio-cleanup-secrets-istio-system
+    subjects:
+    - kind: ServiceAccount
+      name: istio-cleanup-secrets-service-account
+      namespace: istio-system
+---
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBindingPlacement
+metadata:
+  name: istio-cleanup-secrets-istio-system
+  annotations:
+    "helm.sh/hook": post-delete
+    "helm.sh/hook-delete-policy": hook-succeeded
+    "helm.sh/hook-weight": "2"
+  labels:
+    app: security
+    chart: security-1.0.3
+    heritage: Tiller
+    release: istio
+spec:
+  clusterNames:
+  - cluster2
+  - cluster1
+---
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBindingPlacement
+metadata:
+  name: istio-pilot-istio-system
+  labels:
+    app: istio-pilot
+    chart: pilot-1.0.3
+    heritage: Tiller
+    release: istio
+spec:
+  clusterNames:
+  - cluster2
+  - cluster1
+---
+# Source: istio/charts/prometheus/templates/clusterrolebindings.yaml
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBinding
+metadata:
+  name: prometheus-istio-system
+spec:
+  template:
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: prometheus-istio-system
+    subjects:
+    - kind: ServiceAccount
+      name: prometheus
+      namespace: istio-system
+---
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBindingPlacement
+metadata:
+  name: prometheus-istio-system
+  labels:
+    app: istio-pilot
+    chart: pilot-1.0.3
+    heritage: Tiller
+    release: istio
+spec:
+  clusterNames:
+  - cluster2
+  - cluster1
+---
+# Source: istio/charts/security/templates/clusterrolebinding.yaml
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBinding
+metadata:
+  name: istio-citadel-istio-system
+  labels:
+    app: security
+    chart: security-1.0.3
+    heritage: Tiller
+    release: istio
+spec:
+  template:
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: istio-citadel-istio-system
+    subjects:
+    - kind: ServiceAccount
+      name: istio-citadel-service-account
+      namespace: istio-system
+---
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBindingPlacement
+metadata:
+  name: istio-citadel-istio-system
+  labels:
+    app: security
+    chart: security-1.0.3
+    heritage: Tiller
+    release: istio
+spec:
+  clusterNames:
+  - cluster2
+  - cluster1
+---
+# Source: istio/charts/sidecarInjectorWebhook/templates/clusterrolebinding.yaml
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBinding
+metadata:
+  name: istio-sidecar-injector-admin-role-binding-istio-system
+  labels:
+    app: istio-sidecar-injector
+    chart: sidecarInjectorWebhook-1.0.3
+    heritage: Tiller
+    release: istio
+spec:
+  template:
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: istio-sidecar-injector-istio-system
+    subjects:
+    - kind: ServiceAccount
+      name: istio-sidecar-injector-service-account
+      namespace: istio-system
+---
+apiVersion: generated.federation.k8s.io/v1alpha1
+kind: FederatedClusterRoleBindingPlacement
+metadata:
+  name: istio-sidecar-injector-admin-role-binding-istio-system
+  labels:
+    app: istio-sidecar-injector
+    chart: sidecarInjectorWebhook-1.0.3
+    heritage: Tiller
+    release: istio
+spec:
+  clusterNames:
+  - cluster2
+  - cluster1

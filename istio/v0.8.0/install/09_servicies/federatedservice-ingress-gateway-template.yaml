@@ -13,7 +13,7 @@ spec:
     spec:
       # Replace LoadBalancer with NodePort for minikube and other environments that
       # do not use cloud load-balancers.
-      type: NodePort
+      type: LoadBalancer
       selector:
         istio: ingressgateway
       ports:
