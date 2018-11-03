@@ -49,6 +49,10 @@ spec:
   template:
     spec:
       replicas: 1
+      selector:
+        matchLabels:
+          app: details
+          version: v1
       template:
         metadata:
           labels:
@@ -108,6 +112,10 @@ spec:
   template:
     spec:
       replicas: 1
+      selector:
+        matchLabels:
+          app: ratings
+          version: v1
       template:
         metadata:
           labels:
@@ -167,6 +175,10 @@ spec:
   template:
     spec:
       replicas: 1
+      selector:
+        matchLabels:
+          app: reviews
+          version: v1
       template:
         metadata:
           labels:
@@ -197,6 +209,10 @@ spec:
   template:
     spec:
       replicas: 1
+      selector:
+        matchLabels:
+          app: reviews
+          version: v2
       template:
         metadata:
           labels:
@@ -227,6 +243,10 @@ spec:
   template:
     spec:
       replicas: 1
+      selector:
+        matchLabels:
+          app: reviews
+          version: v3
       template:
         metadata:
           labels:
@@ -286,6 +306,10 @@ spec:
   template:
     spec:
       replicas: 1
+      selector:
+        matchLabels:
+          app: productpage
+          version: v1
       template:
         metadata:
           labels:
