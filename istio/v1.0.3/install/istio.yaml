@@ -3,11 +3,6 @@
 # The MutatingWebhookConfiguration can not be federated since "caBundle" gets patched.
 # Use src/mutataing-webhook-configuration.yaml after install.
 ---
-#apiVersion: v1
-#kind: Namespace
-#metadata:
-#  name: istio-system
----
 # Source: istio/charts/galley/templates/configmap.yaml
 apiVersion: core.federation.k8s.io/v1alpha1
 kind: FederatedConfigMap
@@ -4319,6 +4314,9 @@ spec:
   template:
     spec:
       replicas: 1
+      selector:
+        matchLabels:
+          istio: galley
       strategy:
         rollingUpdate:
           maxSurge: 1
@@ -4452,6 +4450,10 @@ spec:
   template:
     spec:
       replicas: 1
+      selector:
+        matchLabels:
+          app: istio-egressgateway
+          istio: egressgateway
       template:
         metadata:
           labels:
@@ -4609,6 +4611,10 @@ spec:
   template:
     spec:
       replicas: 1
+      selector:
+        matchLabels:
+          app: istio-ingressgateway
+          istio: ingressgateway
       template:
         metadata:
           labels:
@@ -4771,6 +4777,11 @@ spec:
   template:
     spec:
       replicas: 1
+      selector:
+        matchLabels:
+          app: policy
+          istio: mixer
+          istio-mixer-type: policy
       template:
         metadata:
           labels:
@@ -4923,6 +4934,11 @@ spec:
   template:
     spec:
       replicas: 1
+      selector:
+        matchLabels:
+          app: telemetry
+          istio: mixer
+          istio-mixer-type: telemetry
       template:
         metadata:
           labels:
@@ -5048,6 +5064,10 @@ spec:
   template:
     spec:
       replicas: 1
+      selector:
+        matchLabels:
+          istio: pilot
+          app: pilot
       template:
         metadata:
           labels:
@@ -5335,6 +5355,9 @@ spec:
   template:
     spec:
       replicas: 1
+      selector:
+        matchLabels:
+          istio: citadel
       template:
         metadata:
           labels:
@@ -5425,6 +5448,9 @@ spec:
   template:
     spec:
       replicas: 1
+      selector:
+        matchLabels:
+          istio: sidecar-injector
       template:
         metadata:
           labels:
