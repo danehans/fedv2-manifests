@@ -1,6 +1,6 @@
 # Created from:
 # https://raw.githubusercontent.com/istio/istio/release-0.8/samples/bookinfo/routing/route-rule-all-v1.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedVirtualService
 metadata:
   name: productpage
@@ -18,7 +18,7 @@ spec:
             host: productpage
             subset: v1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedVirtualServicePlacement
 metadata:
   name: productpage
@@ -27,7 +27,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedVirtualService
 metadata:
   name: reviews
@@ -42,7 +42,7 @@ spec:
             host: reviews
             subset: v1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedVirtualServicePlacement
 metadata:
   name: reviews
@@ -51,7 +51,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedVirtualService
 metadata:
   name: ratings
@@ -66,7 +66,7 @@ spec:
             host: ratings
             subset: v1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedVirtualServicePlacement
 metadata:
   name: ratings
@@ -75,7 +75,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedVirtualService
 metadata:
   name: details
@@ -90,7 +90,7 @@ spec:
             host: details
             subset: v1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedVirtualServicePlacement
 metadata:
   name: details
@@ -99,7 +99,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDestinationRule
 metadata:
   name: productpage
@@ -112,7 +112,7 @@ spec:
         labels:
           version: v1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDestinationRulePlacement
 metadata:
   name: productpage
@@ -121,7 +121,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDestinationRule
 metadata:
   name: reviews
@@ -140,7 +140,7 @@ spec:
         labels:
           version: v3
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDestinationRulePlacement
 metadata:
   name: reviews
@@ -149,7 +149,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDestinationRule
 metadata:
   name: ratings
@@ -171,7 +171,7 @@ spec:
         labels:
           version: v2-mysql-vm
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDestinationRulePlacement
 metadata:
   name: ratings
@@ -180,7 +180,7 @@ spec:
   - cluster2
   - cluster1
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDestinationRule
 metadata:
   name: details
@@ -196,7 +196,7 @@ spec:
         labels:
           version: v2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedDestinationRulePlacement
 metadata:
   name: details
