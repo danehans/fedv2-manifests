@@ -24,6 +24,7 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
 ---
 # Source: istio/charts/mixer/templates/config.yaml
@@ -149,6 +150,7 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
 ---
 apiVersion: primitives.federation.k8s.io/v1alpha1
@@ -224,6 +226,7 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
 ---
 apiVersion: primitives.federation.k8s.io/v1alpha1
@@ -247,6 +250,7 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
 ---
 apiVersion: primitives.federation.k8s.io/v1alpha1
@@ -270,6 +274,7 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
 ---
 apiVersion: primitives.federation.k8s.io/v1alpha1
@@ -308,6 +313,7 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
 ---
 apiVersion: primitives.federation.k8s.io/v1alpha1
@@ -346,6 +352,7 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
 ---
 apiVersion: primitives.federation.k8s.io/v1alpha1
@@ -384,6 +391,7 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
 ---
 apiVersion: primitives.federation.k8s.io/v1alpha1
@@ -422,6 +430,7 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
 ---
 apiVersion: primitives.federation.k8s.io/v1alpha1
@@ -458,6 +467,7 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
 ---
 apiVersion: primitives.federation.k8s.io/v1alpha1
@@ -494,6 +504,7 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
 ---
 apiVersion: primitives.federation.k8s.io/v1alpha1
@@ -648,6 +659,7 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
 ---
 apiVersion: primitives.federation.k8s.io/v1alpha1
@@ -674,6 +686,7 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
 ---
 apiVersion: primitives.federation.k8s.io/v1alpha1
@@ -698,6 +711,7 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
 ---
 apiVersion: primitives.federation.k8s.io/v1alpha1
@@ -722,6 +736,7 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
 ---
 apiVersion: primitives.federation.k8s.io/v1alpha1
@@ -744,6 +759,7 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
 ---
 apiVersion: primitives.federation.k8s.io/v1alpha1
@@ -767,6 +783,7 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
 ---
 apiVersion: primitives.federation.k8s.io/v1alpha1
@@ -814,6 +831,7 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
 ---
 # Configuration needed by Mixer.
@@ -841,6 +859,7 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
 ---
 apiVersion: primitives.federation.k8s.io/v1alpha1
@@ -865,4 +884,5 @@ metadata:
   namespace: istio-system
 spec:
   clusterNames:
+  - cluster1
   - cluster2
