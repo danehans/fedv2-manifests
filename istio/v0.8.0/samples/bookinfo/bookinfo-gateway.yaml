@@ -1,6 +1,6 @@
 # Federated manifest source:
 # https://raw.githubusercontent.com/istio/istio/release-0.8/samples/bookinfo/routing/bookinfo-gateway.yaml
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedGateway
 metadata:
   name: bookinfo-gateway
@@ -17,16 +17,16 @@ spec:
         hosts:
         - "*"
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedGatewayPlacement
 metadata:
   name: bookinfo-gateway
 spec:
   clusterNames:
-  - cluster2
   - cluster1
+  - cluster2
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedVirtualService
 metadata:
   name: bookinfo
@@ -53,11 +53,11 @@ spec:
             port:
               number: 9080
 ---
-apiVersion: generated.federation.k8s.io/v1alpha1
+apiVersion: primitives.federation.k8s.io/v1alpha1
 kind: FederatedVirtualServicePlacement
 metadata:
   name: bookinfo
 spec:
   clusterNames:
-  - cluster2
   - cluster1
+  - cluster2
