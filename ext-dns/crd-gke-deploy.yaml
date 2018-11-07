@@ -20,7 +20,7 @@ spec:
         - --crd-source-apiversion=multiclusterdns.federation.k8s.io/v1alpha1
         - --crd-source-kind=DNSEndpoint
         - --provider=google
-        - --domain-filter=daneyon.com # will make ExternalDNS see only the hosted zones matching provided domain, omit to process all available hosted zones
+        - --domain-filter=external.daneyon.com # will make ExternalDNS see only the hosted zones matching provided domain, omit to process all available hosted zones
         - --registry=txt
         - --txt-prefix=cname
         # - --registry=noop https://github.com/kubernetes-incubator/external-dns/issues/740

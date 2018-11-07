@@ -4,7 +4,7 @@ metadata:
   name: istio-ingressgateway
   namespace: istio-system 
 spec:
-  domainRef: external.daneyon.com
+  domainRef: istio-ingressgateway
   dnsPrefix: productpage
   recordTTL: 300
   allowServiceWithoutEndpoints: false

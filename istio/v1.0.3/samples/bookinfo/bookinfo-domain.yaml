@@ -1,0 +1,7 @@
+apiVersion: multiclusterdns.federation.k8s.io/v1alpha1
+kind: Domain
+metadata:
+  name: istio-ingressgateway
+  namespace: istio-system 
+domain: external.daneyon.com
+nameServer: 216.239.32.108
