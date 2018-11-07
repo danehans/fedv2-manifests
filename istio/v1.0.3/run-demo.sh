@@ -11,8 +11,12 @@ kubefed2 federate enable ClusterRole
 kubefed2 federate enable ClusterRoleBinding
 kubefed2 federate enable RoleBinding
 kubefed2 federate enable HorizontalPodAutoscaler
-
+kubefed2 federate enable MutatingWebhookConfiguration
 sleep 5
+
+echo "## Patching the MutatingWebhookConfiguration federatedTypeConfig due to Issue #389..."
+kubectl patch -n federation-system federatedtypeconfig/mutatingwebhookconfigurations.admissionregistration.k8s.io --type=merge  -p='{"spec":{"comparisonField":"Generation"}}'
+
 
 echo "## Updating the fed-v2 service accounts in target clusters due to issue #354..."
 for i in 1 2; do kubectl patch clusterrole/federation-controller-manager:cluster$i-cluster1 -p='{"rules":[{"apiGroups":["*"],"resources":["*"],"verbs":["*"]},{"nonResourceURLs":["/metrics"],"verbs":["get"]}]}' --context cluster$i; done
@@ -22,7 +26,6 @@ kubectl create ns istio-system 2> /dev/null
 
 echo "## Installing Federated Istio..."
 kubectl create -f istio/$ISTIO_VERSION/install/istio.yaml 2> /dev/null
-
 sleep 10
 
 echo "## Federating the Istio custom resource types..."
@@ -36,20 +39,15 @@ kubefed2 federate enable metric
 kubefed2 federate enable attributemanifest
 kubefed2 federate enable stdio
 kubefed2 federate enable logentry
-
 sleep 3
 
 echo "## Creating the Federated Istio custom resources..."
 kubectl create -f istio/$ISTIO_VERSION/install/istio-types.yaml 2> /dev/null
 
-echo "## Installing MutatingWebhookConfiguration (non-federated) due to Issue #389..."
-for i in 1 2; do kubectl create -f istio/$ISTIO_VERSION/src/mutating-webhook-configuration.yaml --context cluster$i; done
-
 echo "## Waiting 30 seconds for the Istio control-plane pods to start running..."
 sleep 30
 
 for i in 1 2; do kubectl get pods -n istio-system --context cluster$i; done
-
 sleep 5
 
 for i in 1 2; do kubectl get mutatingwebhookconfigurations --context cluster$i; done
@@ -58,7 +56,6 @@ echo "## Labeling the default namespace used for sidecar injection..."
 kubectl label namespace default istio-injection=enabled 2> /dev/null
 
 for i in 1 2; do kubectl get namespace -L istio-injection --context cluster$i; done
-
 sleep 3
 
 echo "## Deploying the sample bookinfo application..."
@@ -71,12 +68,10 @@ for i in 1 2; do kubectl get pod --context cluster$i; done
 
 echo "## Federating the Istio custom resource types used by the bookinfo gateway..."
 kubefed2 federate enable VirtualService
-
 sleep 3
 
 echo "## Creating Federated bookinfo gateway..."
 kubectl create -f istio/$ISTIO_VERSION/samples/bookinfo/bookinfo-gateway.yaml 2> /dev/null
-
 sleep 3
 
 for i in 1 2; do kubectl get gateways --context cluster$i; done

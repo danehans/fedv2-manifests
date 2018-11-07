@@ -23,6 +23,15 @@ kubefed2 federate enable ClusterRole
 kubefed2 federate enable ClusterRoleBinding
 kubefed2 federate enable RoleBinding
 kubefed2 federate enable HorizontalPodAutoscaler
+kubefed2 federate enable MutatingWebhookConfiguration
+```
+
+Since the sidecar-injector pod patches the client `caBundle` of the `MutatingWebhookConfiguration` resource,
+`comparisonField: Generation` must be used for the MutatingWebhookConfiguration `FederatedTypeConfig`.
+[Issue #389](https://github.com/kubernetes-sigs/federation-v2/issues/389) has been created to address this
+limitation. For the time being, patch the resource.
+```bash
+kubectl patch -n federation-system federatedtypeconfig/mutatingwebhookconfigurations.admissionregistration.k8s.io --type=merge  -p='{"spec":{"comparisonField":"Generation"}}'
 ```
 
 You must update the Federation-v2 service account `ClusterRole` for each target cluster due to
@@ -69,18 +78,12 @@ kubefed2 federate enable attributemanifest
 kubefed2 federate enable stdio
 kubefed2 federate enable logentry
 ```
+__Note:__ If you get error message `error: Unable to find api resource named...` Kubernetes is not finished creating all
+the Istio CRD's. Wait a moment and try running the `kubefed2 federate` command again.
 
 Create the Federated Istio custom resources:
 ```bash
 kubectl create -f istio/$ISTIO_VERSION/install/istio-types.yaml
-```
-
-Since the sidecar-injector pod patches the client `caBundle` of the `MutatingWebhookConfiguration` resource, it can not
-be federated. [Issue #389](https://github.com/kubernetes-sigs/federation-v2/issues/389) has been created to address this
-limitation. For the time being, deploy the `MutatingWebhookConfiguration` resource to clusters individually.
-```bash
-for i in 1 2; do kubectl create -f istio/$ISTIO_VERSION/src/mutating-webhook-configuration.yaml \
-    --context cluster$i; done
 ```
 
 ## Istio Deployment Verification
@@ -113,15 +116,6 @@ istio-sidecar-injector-fc9dd55f7-nncrx    1/1       Running     1          1m
 istio-statsd-prom-bridge-9c78dbbc-bcjqs   1/1       Running     0          1m
 istio-telemetry-785947f8c8-s8sqq          2/2       Running     0          1m
 prometheus-9c994b8db-965q9                1/1       Running     0          1m
-```
-
-Verify the the `MutatingWebhookConfiguration` resources.
-```bash
-$ for i in 1 2; do kubectl get mutatingwebhookconfigurations --context cluster$i; done
-NAME                     CREATED AT
-istio-sidecar-injector   2018-10-29T16:28:16Z
-NAME                     CREATED AT
-istio-sidecar-injector   2018-10-29T16:28:16Z
 ```
 
 The Federated Istio meshes are now ready to run applications. You can now proceed to the Bookinfo Deployment
