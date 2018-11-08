@@ -11,12 +11,8 @@ kubefed2 federate enable ClusterRole
 kubefed2 federate enable ClusterRoleBinding
 kubefed2 federate enable RoleBinding
 kubefed2 federate enable HorizontalPodAutoscaler
-kubefed2 federate enable MutatingWebhookConfiguration
+kubefed2 federate enable MutatingWebhookConfiguration --comparison-field=Generation
 sleep 5
-
-echo "## Patching the MutatingWebhookConfiguration federatedTypeConfig due to Issue #389..."
-kubectl patch -n federation-system federatedtypeconfig/mutatingwebhookconfigurations.admissionregistration.k8s.io --type=merge  -p='{"spec":{"comparisonField":"Generation"}}'
-
 
 echo "## Updating the fed-v2 service accounts in target clusters due to issue #354..."
 for i in 1 2; do kubectl patch clusterrole/federation-controller-manager:cluster$i-cluster1 -p='{"rules":[{"apiGroups":["*"],"resources":["*"],"verbs":["*"]},{"nonResourceURLs":["/metrics"],"verbs":["get"]}]}' --context cluster$i; done
@@ -26,7 +22,7 @@ kubectl create ns istio-system 2> /dev/null
 
 echo "## Installing Federated Istio..."
 kubectl create -f istio/$ISTIO_VERSION/install/istio.yaml 2> /dev/null
-echo "## Waiting 60-seconds for Istio resources to be created before proceeding with the installation..."
+echo "## Waiting 60-seconds for Federated Istio resource creation to complete before proceeding with the installation..."
 sleep 60
 
 echo "## Federating the Istio custom resource types..."
@@ -45,7 +41,7 @@ sleep 3
 echo "## Creating the Federated Istio custom resources..."
 kubectl create -f istio/$ISTIO_VERSION/install/istio-types.yaml 2> /dev/null
 
-echo "## Waiting 30 seconds for the Istio control-plane pods to start running..."
+echo "## Waiting 30-seconds for the Istio control-plane pods to start running..."
 sleep 30
 
 for i in 1 2; do kubectl get pods -n istio-system --context cluster$i; done

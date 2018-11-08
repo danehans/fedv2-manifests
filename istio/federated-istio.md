@@ -23,16 +23,10 @@ kubefed2 federate enable ClusterRole
 kubefed2 federate enable ClusterRoleBinding
 kubefed2 federate enable RoleBinding
 kubefed2 federate enable HorizontalPodAutoscaler
-kubefed2 federate enable MutatingWebhookConfiguration
+kubefed2 federate enable MutatingWebhookConfiguration --comparison-field=Generation
 ```
-
-Since the sidecar-injector pod patches the client `caBundle` of the `MutatingWebhookConfiguration` resource,
-`comparisonField: Generation` must be used for the MutatingWebhookConfiguration `FederatedTypeConfig`.
-[Issue #389](https://github.com/kubernetes-sigs/federation-v2/issues/389) has been created to address this
-limitation. For the time being, patch the resource.
-```bash
-kubectl patch -n federation-system federatedtypeconfig/mutatingwebhookconfigurations.admissionregistration.k8s.io --type=merge  -p='{"spec":{"comparisonField":"Generation"}}'
-```
+__Note:__ The sidecar-injector pod patches the client `caBundle` of the `MutatingWebhookConfiguration` resource,
+so `comparisonField: Generation` must be used for federating `MutatingWebhookConfiguration`.
 
 You must update the Federation-v2 service account `ClusterRole` for each target cluster due to
 [issue #354](https://github.com/kubernetes-sigs/federation-v2/issues/354):
