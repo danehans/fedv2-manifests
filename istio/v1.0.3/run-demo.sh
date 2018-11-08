@@ -26,7 +26,7 @@ kubectl create ns istio-system 2> /dev/null
 
 echo "## Installing Federated Istio..."
 kubectl create -f istio/$ISTIO_VERSION/install/istio.yaml 2> /dev/null
-sleep 10
+sleep 30
 
 echo "## Federating the Istio custom resource types..."
 kubefed2 federate enable Gateway
