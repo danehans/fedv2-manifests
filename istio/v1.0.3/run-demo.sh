@@ -26,7 +26,8 @@ kubectl create ns istio-system 2> /dev/null
 
 echo "## Installing Federated Istio..."
 kubectl create -f istio/$ISTIO_VERSION/install/istio.yaml 2> /dev/null
-sleep 30
+echo "## Waiting 60-seconds for Istio resources to be created before proceeding with the installation..."
+sleep 60
 
 echo "## Federating the Istio custom resource types..."
 kubefed2 federate enable Gateway
@@ -61,7 +62,7 @@ sleep 3
 echo "## Deploying the sample bookinfo application..."
 kubectl create -f istio/$ISTIO_VERSION/samples/bookinfo/bookinfo.yaml 2> /dev/null
 
-echo "## Waiting 30 seconds for bookinfo pods to start running..."
+echo "## Waiting 30-seconds for bookinfo pods to start running..."
 sleep 30
 
 for i in 1 2; do kubectl get pod --context cluster$i; done
