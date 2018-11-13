@@ -1,9 +1,0 @@
-apiVersion: generated.federation.k8s.io/v1alpha1
-kind: FederatedHorizontalPodAutoscalerPlacement
-metadata:
-  name: istio-ingress
-  namespace: istio-system
-spec:
-  clusterNames:
-  - cluster2
-  - cluster1
