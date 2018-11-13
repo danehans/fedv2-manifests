@@ -1,0 +1,105 @@
+apiVersion: core.federation.k8s.io/v1alpha1
+kind: FederatedReplicaSet
+metadata:
+  name: fr1
+spec:
+  template:
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: demo
+      template:
+        metadata:
+          name: demo
+          labels:
+            app: demo
+        spec:
+          containers:
+          - name: demo
+            image: shashidharatd/fed-sd-demo
+            ports:
+            - containerPort: 8081
+            env:
+            - name: MY_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: MY_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: MY_POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: MY_POD_SERVICE_ACCOUNT
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.serviceAccountName
+---
+apiVersion: core.federation.k8s.io/v1alpha1
+kind: FederatedReplicaSetPlacement
+metadata:
+  name: fr1
+spec:
+  clusterNames:
+  - cluster1
+  - cluster2
+---
+apiVersion: core.federation.k8s.io/v1alpha1
+kind: FederatedService
+metadata:
+  name: fs1
+spec:
+  template:
+    spec:
+      selector:
+        app: demo
+      ports:
+      - protocol: TCP
+        port: 8081
+        targetPort: 8081
+---
+apiVersion: core.federation.k8s.io/v1alpha1
+kind: FederatedServicePlacement
+metadata:
+  name: fs1
+spec:
+  clusterNames:
+  - cluster1
+  - cluster2
+---
+apiVersion: primitives.federation.k8s.io/v1alpha1
+kind: FederatedVirtualService
+metadata:
+  name: fvs1
+spec:
+  template:
+    spec:
+      hosts:
+      - "*"
+      gateways:
+      - bookinfo-gateway
+      http:
+      - match:
+        - uri:
+            exact: /test
+        route:
+        - destination:
+            host: fs1
+            port:
+              number: 8081
+---
+apiVersion: primitives.federation.k8s.io/v1alpha1
+kind: FederatedVirtualServicePlacement
+metadata:
+  name: fvs1
+spec:
+  clusterNames:
+  - cluster1
+  - cluster2

@@ -4,7 +4,7 @@ Follow the steps in the Federated DNS
 [Multi-Cluster Service DNS with ExternalDNS Guide](https://github.com/danehans/federation-v2/blob/svc_dns_docs/docs/servicedns-with-externaldns.md)
 to deploy external-dns.
 
-Create the bookinfo `ServiceDNSRecord`.
+Create the `Domain` used by your federation and the bookinfo `ServiceDNSRecord`.
 ```bash
 $ kubectl create -f istio/$ISTIO_VERSION/samples/bookinfo/bookinfo-dns.yaml
 ```
