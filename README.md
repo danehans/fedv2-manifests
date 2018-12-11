@@ -1,2 +1,3 @@
 # fedv2-manifests
-Manifests Used for Kubernetes Federation v2
+Manifests used for Kubernetes Federation v2. This
+repo is not actively maintained.
